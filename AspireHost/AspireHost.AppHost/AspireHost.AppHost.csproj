@@ -12,8 +12,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting" Version="9.0.0" />
-    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.0.0" />
+    <PackageReference Include="Aspire.Hosting" />
+    <PackageReference Include="Aspire.Hosting.AppHost" />
     <ProjectReference Include="..\..\ContentService\ContentService.Api\ContentService.Api.csproj" />
     <ProjectReference Include="..\..\VoteService\VoteService.Api\VoteService.Api.csproj" />
   </ItemGroup>
