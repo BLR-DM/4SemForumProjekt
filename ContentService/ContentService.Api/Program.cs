@@ -1,3 +1,5 @@
+using ContentService.Domain;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -32,6 +34,14 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 })
 .WithName("GetWeatherForecast");
+
+Class1 test = new Class1();
+
+app.MapGet("/hello", () =>
+{
+    var test1 = test.HelloWorld();
+    return test1;
+});
 
 app.Run();
 
