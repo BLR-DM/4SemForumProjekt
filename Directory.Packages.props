@@ -1,8 +1,11 @@
 <Project>
-	<ItemGroup>
-		<!-- Globale versioner af NuGet-pakker -->
-		<PackageVersion Include="Aspire.Hosting" Version="9.0.0" />
-		<PackageVersion Include="Aspire.Hosting.AppHost" Version="9.0.0" />
-		<PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
-	</ItemGroup>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Globale versioner af NuGet-pakker -->
+    <PackageVersion Include="Aspire.Hosting" Version="9.0.0" />
+    <PackageVersion Include="Aspire.Hosting.AppHost" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
+  </ItemGroup>
 </Project>
