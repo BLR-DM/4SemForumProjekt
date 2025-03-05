@@ -7,7 +7,26 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspireHost.AppHost", "Aspir
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspireHost.ServiceDefaults", "AspireHost.ServiceDefaults\AspireHost.ServiceDefaults.csproj", "{8620A0F3-00B1-4424-8644-CB5ACBF48A3B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ContentService", "ContentService", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		..\ContentService\ContentService.Infrastructure\ContentService.Infrastructure.csproj = ..\ContentService\ContentService.Infrastructure\ContentService.Infrastructure.csproj
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentService.Api", "..\ContentService\ContentService.Api\ContentService.Api.csproj", "{E7042E06-3DFB-3DFB-69E6-6423955DF3E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentService.Application", "..\ContentService\ContentService.Application\ContentService.Application.csproj", "{4B6F6E92-8B76-2549-CABD-72204C8A78E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentService.Domain", "..\ContentService\ContentService.Domain\ContentService.Domain.csproj", "{DDDA25F3-915C-1A9E-A348-35AB307F821E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VoteService", "VoteService", "{7952F5AA-FBDB-48F2-97C6-6B95C98664AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoteService.Api", "..\VoteService\VoteService.Api\VoteService.Api.csproj", "{72E770D8-EEF9-BB46-CC78-320D7441745D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoteService.Infrastructure", "..\VoteService\VoteService.Infrastructure\VoteService.Infrastructure.csproj", "{C36613AA-EAB0-4749-7B4D-729169A5C550}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoteService.Application", "..\VoteService\VoteService.Application\VoteService.Application.csproj", "{56E7E4CC-31CF-9A0B-568B-A221C6100F67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoteService.Domain", "..\VoteService\VoteService.Domain\VoteService.Domain.csproj", "{2470E963-8026-E58D-452E-FEDBD07F7655}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,9 +46,42 @@ Global
 		{E7042E06-3DFB-3DFB-69E6-6423955DF3E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7042E06-3DFB-3DFB-69E6-6423955DF3E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7042E06-3DFB-3DFB-69E6-6423955DF3E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B6F6E92-8B76-2549-CABD-72204C8A78E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B6F6E92-8B76-2549-CABD-72204C8A78E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B6F6E92-8B76-2549-CABD-72204C8A78E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B6F6E92-8B76-2549-CABD-72204C8A78E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDDA25F3-915C-1A9E-A348-35AB307F821E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDDA25F3-915C-1A9E-A348-35AB307F821E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDDA25F3-915C-1A9E-A348-35AB307F821E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDDA25F3-915C-1A9E-A348-35AB307F821E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72E770D8-EEF9-BB46-CC78-320D7441745D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72E770D8-EEF9-BB46-CC78-320D7441745D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72E770D8-EEF9-BB46-CC78-320D7441745D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72E770D8-EEF9-BB46-CC78-320D7441745D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C36613AA-EAB0-4749-7B4D-729169A5C550}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C36613AA-EAB0-4749-7B4D-729169A5C550}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C36613AA-EAB0-4749-7B4D-729169A5C550}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C36613AA-EAB0-4749-7B4D-729169A5C550}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56E7E4CC-31CF-9A0B-568B-A221C6100F67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56E7E4CC-31CF-9A0B-568B-A221C6100F67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56E7E4CC-31CF-9A0B-568B-A221C6100F67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56E7E4CC-31CF-9A0B-568B-A221C6100F67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2470E963-8026-E58D-452E-FEDBD07F7655}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2470E963-8026-E58D-452E-FEDBD07F7655}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2470E963-8026-E58D-452E-FEDBD07F7655}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2470E963-8026-E58D-452E-FEDBD07F7655}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E7042E06-3DFB-3DFB-69E6-6423955DF3E3} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{4B6F6E92-8B76-2549-CABD-72204C8A78E9} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{DDDA25F3-915C-1A9E-A348-35AB307F821E} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{72E770D8-EEF9-BB46-CC78-320D7441745D} = {7952F5AA-FBDB-48F2-97C6-6B95C98664AA}
+		{C36613AA-EAB0-4749-7B4D-729169A5C550} = {7952F5AA-FBDB-48F2-97C6-6B95C98664AA}
+		{56E7E4CC-31CF-9A0B-568B-A221C6100F67} = {7952F5AA-FBDB-48F2-97C6-6B95C98664AA}
+		{2470E963-8026-E58D-452E-FEDBD07F7655} = {7952F5AA-FBDB-48F2-97C6-6B95C98664AA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5437579E-A1C5-4B88-A7CA-E26B4B8E38EA}
