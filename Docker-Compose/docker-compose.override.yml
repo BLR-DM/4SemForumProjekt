@@ -1,7 +1,15 @@
 services:
+
   keycloak:
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
     ports:
       - "8080:8080"
+
+  sql-server:
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Password123
+    ports:
+      - "1433:1433"

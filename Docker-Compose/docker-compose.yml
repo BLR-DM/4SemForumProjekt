@@ -1,5 +1,10 @@
 services:
+
   keycloak:
     image: quay.io/keycloak/keycloak:latest
     container_name: keycloak
     command: start-dev
+
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sql-server
