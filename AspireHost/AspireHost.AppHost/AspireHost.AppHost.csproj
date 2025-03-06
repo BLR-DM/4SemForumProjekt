@@ -16,6 +16,7 @@
     <PackageReference Include="Aspire.Hosting.AppHost" />
     <ProjectReference Include="..\..\ContentService\ContentService.Api\ContentService.Api.csproj" />
     <ProjectReference Include="..\..\VoteService\VoteService.Api\VoteService.Api.csproj" />
+    <ProjectReference Include="..\..\SubscriptionService\SubscriptionService.Api\SubscriptionService.Api.csproj" />
   </ItemGroup>
 
 </Project>

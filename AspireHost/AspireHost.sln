@@ -32,6 +32,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution 
 		..\Directory.Packages.props = ..\Directory.Packages.props
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SubscriptionService", "SubscriptionService", "{ECC7FEE3-A871-40DE-AD0A-7797F20EE853}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubscriptionService.Api", "..\SubscriptionService\SubscriptionService.Api\SubscriptionService.Api.csproj", "{3B7D2DE9-166E-F099-7E9D-1B69F757F281}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubscriptionService.Infrastructure", "..\SubscriptionService\SubscriptionService.Infrastructure\SubscriptionService.Infrastructure.csproj", "{E7B7C0D6-45F8-A7E2-83F5-DBAAE0302DE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubscriptionService.Domain", "..\SubscriptionService\SubscriptionService.Domain\SubscriptionService.Domain.csproj", "{7F40B01B-F355-993B-9DCC-B9F7F62B81F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubscriptionService.Application", "..\SubscriptionService\SubscriptionService.Application\SubscriptionService.Application.csproj", "{32C484F7-B3B3-4533-C4E0-8E1991BA4F42}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -78,6 +88,22 @@ Global
 		{A0A13057-8E13-48D4-68A0-5303AC56BEDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0A13057-8E13-48D4-68A0-5303AC56BEDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0A13057-8E13-48D4-68A0-5303AC56BEDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B7D2DE9-166E-F099-7E9D-1B69F757F281}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B7D2DE9-166E-F099-7E9D-1B69F757F281}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B7D2DE9-166E-F099-7E9D-1B69F757F281}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B7D2DE9-166E-F099-7E9D-1B69F757F281}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7B7C0D6-45F8-A7E2-83F5-DBAAE0302DE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7B7C0D6-45F8-A7E2-83F5-DBAAE0302DE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7B7C0D6-45F8-A7E2-83F5-DBAAE0302DE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7B7C0D6-45F8-A7E2-83F5-DBAAE0302DE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F40B01B-F355-993B-9DCC-B9F7F62B81F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F40B01B-F355-993B-9DCC-B9F7F62B81F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F40B01B-F355-993B-9DCC-B9F7F62B81F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F40B01B-F355-993B-9DCC-B9F7F62B81F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32C484F7-B3B3-4533-C4E0-8E1991BA4F42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32C484F7-B3B3-4533-C4E0-8E1991BA4F42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32C484F7-B3B3-4533-C4E0-8E1991BA4F42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32C484F7-B3B3-4533-C4E0-8E1991BA4F42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,6 +117,10 @@ Global
 		{56E7E4CC-31CF-9A0B-568B-A221C6100F67} = {7952F5AA-FBDB-48F2-97C6-6B95C98664AA}
 		{2470E963-8026-E58D-452E-FEDBD07F7655} = {7952F5AA-FBDB-48F2-97C6-6B95C98664AA}
 		{A0A13057-8E13-48D4-68A0-5303AC56BEDD} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{3B7D2DE9-166E-F099-7E9D-1B69F757F281} = {ECC7FEE3-A871-40DE-AD0A-7797F20EE853}
+		{E7B7C0D6-45F8-A7E2-83F5-DBAAE0302DE2} = {ECC7FEE3-A871-40DE-AD0A-7797F20EE853}
+		{7F40B01B-F355-993B-9DCC-B9F7F62B81F9} = {ECC7FEE3-A871-40DE-AD0A-7797F20EE853}
+		{32C484F7-B3B3-4533-C4E0-8E1991BA4F42} = {ECC7FEE3-A871-40DE-AD0A-7797F20EE853}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5437579E-A1C5-4B88-A7CA-E26B4B8E38EA}

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Scalar.AspNetCore" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SubscriptionService.Application\SubscriptionService.Application.csproj" />
+    <ProjectReference Include="..\SubscriptionService.Domain\SubscriptionService.Domain.csproj" />
+    <ProjectReference Include="..\SubscriptionService.Infrastructure\SubscriptionService.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
