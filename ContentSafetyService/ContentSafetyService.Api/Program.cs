@@ -1,3 +1,5 @@
+using ContentSafetyService.Application;
+using ContentSafetyService.Application.CommandDto;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,5 +34,11 @@ if (app.Environment.IsDevelopment())
 app.UseCors("AllowAspire");
 
 app.MapGet("/hello", () => "Hello World!");
+
+app.MapPost("/moderatepost",
+    async (PostDto post, IContentSafetyCommand command) =>
+    {
+        await command.MakeDecisionAsync(post);
+    });
 
 app.Run();
