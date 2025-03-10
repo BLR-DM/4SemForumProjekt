@@ -1,4 +1,7 @@
-﻿using ContentSafetyService.Domain;
+// Copyright (c) Microsoft. All rights reserved.
+// To learn more, please visit the documentation - Quickstart: Azure Content Safety: https://aka.ms/acsstudiodoc
+
+using ContentSafetyService.Domain;
 using ContentSafetyService.Domain.Enums;
 
 namespace ContentSafetyService.Application;
