@@ -10,8 +10,8 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAspire", builder =>
     {
-        builder.WithOrigins("https://localhost:7293")
-            .WithOrigins("http://localhost:5012")
+        builder.WithOrigins("https://localhost:7214")
+            .WithOrigins("http://localhost:5041")
             .AllowAnyMethod()
             .AllowAnyHeader();
     });
