@@ -1,4 +1,4 @@
-﻿namespace ContentSafetyService.Domain;
+﻿namespace ContentSafetyService.Domain.Errors;
 
 /// <summary>
 /// Class representing a detection inner error.

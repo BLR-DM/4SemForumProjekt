@@ -1,3 +1,8 @@
+using ContentSafetyService.Application;
+using ContentSafetyService.Application.Commands;
+using ContentSafetyService.Domain.Enums;
+using ContentSafetyService.Domain.ValueObjects;
+using ContentSafetyService.Infrastructure;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +22,10 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddHttpClient();
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(builder.Configuration);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,10 +36,24 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 
-//app.UseHttpsRedirection(); 
+app.UseHttpsRedirection(); 
 
 app.UseCors("AllowAspire");
 
 app.MapGet("/hello", () => "Hello World!");
+
+app.MapPost("/moderatecontent",
+    async (Content content, IContentSafetyCommand command) =>
+    {
+        // This is a simple example of how to use the command
+        // to moderate content. In a real-world scenario, you
+        // would likely have more complex logic here.
+        MediaType mediaType = MediaType.Text;
+        string[] blocklists = Array.Empty<string>();
+
+        var decision = await command.ModerateContentAsync(mediaType, content.Text, blocklists);
+
+        return Results.Ok(decision);
+    });
 
 app.Run();

@@ -1,4 +1,4 @@
-﻿namespace ContentSafetyService.Domain;
+﻿namespace ContentSafetyService.Domain.Exceptions;
 
 // Enumeration for media types
 
