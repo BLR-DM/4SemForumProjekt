@@ -22,8 +22,9 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddHttpClient();
 builder.Services.AddApplication();
-builder.Services.AddInfrastructure();
+builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 

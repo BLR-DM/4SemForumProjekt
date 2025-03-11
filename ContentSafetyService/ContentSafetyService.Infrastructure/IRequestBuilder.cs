@@ -1,5 +1,4 @@
-﻿using ContentSafetyService.Domain;
-using ContentSafetyService.Domain.Enums;
+﻿using ContentSafetyService.Domain.Enums;
 
 namespace ContentSafetyService.Infrastructure.Services;
 

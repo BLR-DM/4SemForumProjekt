@@ -1,5 +1,4 @@
-﻿using ContentSafetyService.Application.CommandDto;
-using ContentSafetyService.Domain;
+﻿using ContentSafetyService.Domain;
 using ContentSafetyService.Domain.Enums;
 
 namespace ContentSafetyService.Application.Commands;

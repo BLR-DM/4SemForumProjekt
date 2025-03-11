@@ -11,10 +11,19 @@ public class DecisionService : IDecisionService
     /// </summary>
     public static readonly int[] VALID_THRESHOLD_VALUES = { -1, 0, 2, 4, 6 };
 
+    /// <summary>
+    /// Makes a decision based on the detection result and the specified reject thresholds.
+    /// Users can customize their decision-making method.
+    /// </summary>
+    /// <param name="detectionResult">The detection result object to make the decision on.</param>
+    /// <param name="rejectThresholds">The reject thresholds for each category.</param>
+    /// <returns>The decision made based on the detection result and the specified reject thresholds.</returns>
+
     Decision IDecisionService.MakeDecision(DetectionResult detectionResult, Dictionary<Category, int> rejectThresholds)
     {
         Dictionary<Category, Action> actionResult = new Dictionary<Category, Action>();
         Action finalAction = Action.Accept;
+
         foreach (KeyValuePair<Category, int> pair in rejectThresholds)
         {
             if (!VALID_THRESHOLD_VALUES.Contains(pair.Value))
@@ -64,6 +73,12 @@ public class DecisionService : IDecisionService
         return new Decision(finalAction, actionResult);
     }
 
+    /// <summary>
+    /// Gets the severity score of the specified category from the given detection result.
+    /// </summary>
+    /// <param name="category">The category to get the severity score for.</param>
+    /// <param name="detectionResult">The detection result object to retrieve the severity score from.</param>
+    /// <returns>The severity score of the specified category.</returns>
     int? GetDetectionResultByCategory(Category category, DetectionResult detectionResult)
     {
         int? severityResult = null;

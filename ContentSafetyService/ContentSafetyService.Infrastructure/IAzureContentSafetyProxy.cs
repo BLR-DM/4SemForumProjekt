@@ -7,6 +7,3 @@ public interface IAzureContentSafetyProxy
 {
     Task<DetectionResult> DetectAsync(HttpRequestMessage msg, MediaType mediaType);
 }
-
-//public record DetectionResultDto(List<CategoriesAnalysis> CategoriesAnalysis);
-public record DetectionRequestDto();

@@ -1,10 +1,11 @@
 ﻿using ContentSafetyService.Domain;
 using ContentSafetyService.Domain.Enums;
-using Microsoft.Extensions.Configuration;
+using ContentSafetyService.Infrastructure.Configuration;
+using ContentSafetyService.Infrastructure.Services;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using ContentSafetyService.Infrastructure.Services;
+using Microsoft.Extensions.Options;
 
 namespace ContentSafetyService.Infrastructure.Helpers;
 
@@ -14,18 +15,21 @@ public class RequestBuilder : IRequestBuilder
     private readonly string _endpoint;
     private readonly string _subscriptionKey;
 
-    public static readonly JsonSerializerOptions options =
+    /// <summary>
+    /// The JSON serializer options.
+    /// </summary>
+    private readonly JsonSerializerOptions options =
         new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             Converters = { new JsonStringEnumConverter() }
         };
 
-    public RequestBuilder(IConfiguration configuration)
+    public RequestBuilder(IOptions<ContentSafetySettings> settings)
     {
-        _apiVersion = configuration["ContentSafety:ApiVersion"];
-        _endpoint = configuration["ContentSafety:Endpoint"];
-        _subscriptionKey = configuration["ContentSafety:SubscriptionKey"];
+        _apiVersion = settings.Value.ApiVersion;
+        _endpoint = settings.Value.Endpoint;
+        _subscriptionKey = settings.Value.SubscriptionKey;
     }
 
     HttpRequestMessage IRequestBuilder.BuildHttpRequestMessage(MediaType mediaType, string content, string[] blocklists)
@@ -41,6 +45,11 @@ public class RequestBuilder : IRequestBuilder
         return msg;
     }
 
+    /// <summary>
+    /// Builds the URL for the Content Safety API based on the media type.
+    /// </summary>
+    /// <param name="mediaType">The type of media to analyze.</param>
+    /// <returns>The URL for the Content Safety API.</returns>
     string BuildUrl(MediaType mediaType)
     {
         switch (mediaType)
@@ -54,6 +63,13 @@ public class RequestBuilder : IRequestBuilder
         }
     }
 
+    /// <summary>
+    /// Builds the request body for the Content Safety API request.
+    /// </summary>
+    /// <param name="mediaType">The type of media to analyze.</param>
+    /// <param name="content">The content to analyze.</param>
+    /// <param name="blocklists">The blocklists to use for text analysis.</param>
+    /// <returns>The request body for the Content Safety API request.</returns>
     DetectionRequest BuildRequestBody(MediaType mediaType, string content, string[] blocklists)
     {
         switch (mediaType)
@@ -66,5 +82,4 @@ public class RequestBuilder : IRequestBuilder
                 throw new ArgumentException($"Invalid Media Type {mediaType}");
         }
     }
-
 }
