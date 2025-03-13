@@ -17,6 +17,7 @@
     <ProjectReference Include="..\..\ContentService\ContentService.Api\ContentService.Api.csproj" />
     <ProjectReference Include="..\..\VoteService\VoteService.Api\VoteService.Api.csproj" />
     <ProjectReference Include="..\..\SubscriptionService\SubscriptionService.Api\SubscriptionService.Api.csproj" />
+    <ProjectReference Include="..\..\ContentSafetyService\ContentSafetyService.Api\ContentSafetyService.Api.csproj" />
   </ItemGroup>
 
 </Project>

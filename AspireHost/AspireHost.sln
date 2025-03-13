@@ -42,6 +42,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubscriptionService.Domain"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubscriptionService.Application", "..\SubscriptionService\SubscriptionService.Application\SubscriptionService.Application.csproj", "{32C484F7-B3B3-4533-C4E0-8E1991BA4F42}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ContentSafetyService", "ContentSafetyService", "{BAAF5DF1-82F3-4228-B072-72252356C76B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentSafetyService.Api", "..\ContentSafetyService\ContentSafetyService.Api\ContentSafetyService.Api.csproj", "{B4A65768-19A0-4CB9-FBAC-F688E18A2F7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentSafetyService.Application", "..\ContentSafetyService\ContentSafetyService.Application\ContentSafetyService.Application.csproj", "{0E06641E-6876-8F07-F7D6-E15F0B3E5BEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentSafetyService.Domain", "..\ContentSafetyService\ContentSafetyService.Domain\ContentSafetyService.Domain.csproj", "{0A1F3C4E-3363-9AF5-B6AC-1691F29C7A18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentSafetyService.Infrastructure", "..\ContentSafetyService\ContentSafetyService.Infrastructure\ContentSafetyService.Infrastructure.csproj", "{D8F553FB-96BA-F021-805B-03A7AE0DEB3C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -104,6 +114,22 @@ Global
 		{32C484F7-B3B3-4533-C4E0-8E1991BA4F42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32C484F7-B3B3-4533-C4E0-8E1991BA4F42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32C484F7-B3B3-4533-C4E0-8E1991BA4F42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4A65768-19A0-4CB9-FBAC-F688E18A2F7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4A65768-19A0-4CB9-FBAC-F688E18A2F7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4A65768-19A0-4CB9-FBAC-F688E18A2F7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4A65768-19A0-4CB9-FBAC-F688E18A2F7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E06641E-6876-8F07-F7D6-E15F0B3E5BEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E06641E-6876-8F07-F7D6-E15F0B3E5BEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E06641E-6876-8F07-F7D6-E15F0B3E5BEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E06641E-6876-8F07-F7D6-E15F0B3E5BEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A1F3C4E-3363-9AF5-B6AC-1691F29C7A18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A1F3C4E-3363-9AF5-B6AC-1691F29C7A18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A1F3C4E-3363-9AF5-B6AC-1691F29C7A18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A1F3C4E-3363-9AF5-B6AC-1691F29C7A18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8F553FB-96BA-F021-805B-03A7AE0DEB3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8F553FB-96BA-F021-805B-03A7AE0DEB3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8F553FB-96BA-F021-805B-03A7AE0DEB3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8F553FB-96BA-F021-805B-03A7AE0DEB3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -121,6 +147,10 @@ Global
 		{E7B7C0D6-45F8-A7E2-83F5-DBAAE0302DE2} = {ECC7FEE3-A871-40DE-AD0A-7797F20EE853}
 		{7F40B01B-F355-993B-9DCC-B9F7F62B81F9} = {ECC7FEE3-A871-40DE-AD0A-7797F20EE853}
 		{32C484F7-B3B3-4533-C4E0-8E1991BA4F42} = {ECC7FEE3-A871-40DE-AD0A-7797F20EE853}
+		{B4A65768-19A0-4CB9-FBAC-F688E18A2F7C} = {BAAF5DF1-82F3-4228-B072-72252356C76B}
+		{0E06641E-6876-8F07-F7D6-E15F0B3E5BEF} = {BAAF5DF1-82F3-4228-B072-72252356C76B}
+		{0A1F3C4E-3363-9AF5-B6AC-1691F29C7A18} = {BAAF5DF1-82F3-4228-B072-72252356C76B}
+		{D8F553FB-96BA-F021-805B-03A7AE0DEB3C} = {BAAF5DF1-82F3-4228-B072-72252356C76B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5437579E-A1C5-4B88-A7CA-E26B4B8E38EA}
