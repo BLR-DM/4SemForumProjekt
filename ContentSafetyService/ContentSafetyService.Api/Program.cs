@@ -23,6 +23,8 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddHttpClient();
+
+
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
@@ -45,9 +47,6 @@ app.MapGet("/hello", () => "Hello World!");
 app.MapPost("/moderatecontent",
     async (Content content, IContentSafetyCommand command) =>
     {
-        // This is a simple example of how to use the command
-        // to moderate content. In a real-world scenario, you
-        // would likely have more complex logic here.
         MediaType mediaType = MediaType.Text;
         string[] blocklists = Array.Empty<string>();
 

@@ -28,7 +28,7 @@ public class DecisionService : IDecisionService
         {
             if (!VALID_THRESHOLD_VALUES.Contains(pair.Value))
             {
-                throw new ArgumentException("RejectThreshold can only be in (-1, 0, 2, 4, 6)");
+                throw new ArgumentException("RejectionThresholds can only be in (-1, 0, 2, 4, 6)");
             }
 
             int? severity = GetDetectionResultByCategory(pair.Key, detectionResult);

@@ -1,4 +1,5 @@
-﻿using ContentSafetyService.Application.Services;
+﻿using ContentSafetyService.Application.Configuration;
+using ContentSafetyService.Application.Services;
 using ContentSafetyService.Application.Services.ProxyInterface;
 using ContentSafetyService.Domain;
 using ContentSafetyService.Domain.Enums;
@@ -9,22 +10,24 @@ public class ContentSafetyCommand : IContentSafetyCommand
 {
     private readonly IContentSafetyDetection _contentSafetyDetection;
     private readonly IDecisionService _decisionService;
+    private readonly IRejectionThresholdProvider _rejectionThe;
 
-    public ContentSafetyCommand(IContentSafetyDetection contentSafetyDetection, IDecisionService decisionService)
+    public ContentSafetyCommand(IContentSafetyDetection contentSafetyDetection,
+        IDecisionService decisionService,
+        IRejectionThresholdProvider rejectionThe)
     {
         _contentSafetyDetection = contentSafetyDetection;
         _decisionService = decisionService;
+        _rejectionThe = rejectionThe;
     }
 
     async Task<Decision> IContentSafetyCommand.ModerateContentAsync(MediaType mediaType, string content, string[] blocklists)
     {
-        // Detect content safety
+        // Detect/analyze content safety
         var detectionResult = await _contentSafetyDetection.ContentDetectionAsync(mediaType, content, blocklists);
 
-        // Set the reject thresholds for each category
-        Dictionary<Category, int> rejectThresholds = new Dictionary<Category, int> {
-            { Category.Hate, 4 }, { Category.SelfHarm, 4 }, { Category.Sexual, 4 }, { Category.Violence, 4 }
-        };
+        // Load the rejection thresholds settings
+        var rejectThresholds = _rejectionThe.GetRejectionThresholds();
 
         // Make a decision based on the detection result and reject thresholds
         var decisionResult = _decisionService.MakeDecision(detectionResult, rejectThresholds);
