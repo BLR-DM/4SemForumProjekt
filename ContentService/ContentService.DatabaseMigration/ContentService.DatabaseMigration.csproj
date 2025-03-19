@@ -8,14 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ContentService.Application\ContentService.Application.csproj" />
-    <ProjectReference Include="..\ContentService.Domain\ContentService.Domain.csproj" />
+    <ProjectReference Include="..\ContentService.Infrastructure\ContentService.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
