@@ -28,6 +28,10 @@ builder.Services.AddDaprClient();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
+// Enable DI validation at startup
+builder.Services.AddOptions<ServiceProviderOptions>()
+    .Configure(options => options.ValidateOnBuild = true);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

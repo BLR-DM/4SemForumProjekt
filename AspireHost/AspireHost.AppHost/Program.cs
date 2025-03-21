@@ -1,3 +1,7 @@
+using CommunityToolkit.Aspire.Hosting.Dapr;
+
+Environment.SetEnvironmentVariable("DAPR_COMPONENTS_PATH", Path.Combine(Directory.GetCurrentDirectory(), "components"));
+
 var builder = DistributedApplication.CreateBuilder(args);
 
 var stateStore = builder.AddDaprStateStore("statestore");
