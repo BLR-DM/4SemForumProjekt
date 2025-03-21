@@ -1,8 +1,7 @@
 using ContentSafetyService.Application;
-using ContentSafetyService.Application.Commands;
-using ContentSafetyService.Domain.Enums;
-using ContentSafetyService.Domain.ValueObjects;
 using ContentSafetyService.Infrastructure;
+using Dapr;
+using Dapr.AppCallback.Autogen.Grpc.v1;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +23,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddHttpClient();
 
+builder.Services.AddDaprClient();
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
@@ -42,17 +42,19 @@ app.UseHttpsRedirection();
 
 app.UseCors("AllowAspire");
 
+app.UseCloudEvents();
+
 app.MapGet("/hello", () => "Hello World!");
 
-app.MapPost("/moderatecontent",
-    async (Content content, IContentSafetyCommand command) =>
-    {
-        MediaType mediaType = MediaType.Text;
-        string[] blocklists = Array.Empty<string>();
+//app.MapPost("/moderatecontent",
+//    async (Content content, IContentSafetyCommand command) =>
+//    {
+//        var mediaType = MediaType.Text;
+//        var blocklists = Array.Empty<string>();
 
-        var decision = await command.ModerateContentAsync(mediaType, content.Text, blocklists);
+//        var decision = await command.ModerateContentAsync(mediaType, content.Text, blocklists);
 
-        return Results.Ok(decision);
-    });
+//        return Results.Ok(decision);
+//    }).WithTopic("pubsubName", "name");
 
 app.Run();
