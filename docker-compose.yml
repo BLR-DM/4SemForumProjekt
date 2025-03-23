@@ -1,0 +1,50 @@
+services:
+  contentsafetyservice:
+    image: contentsafetyservice
+    build:
+      context: ./ContentSafetyService
+      dockerfile: /ContentSafetyService.Api/Dockerfile
+    ports:
+      - "3000:80" # Map port 80 of the container to port 3000 on the host
+    environment:
+      - ASPNETCORE_URLS=http://+:80 # Ensure your app listens on port 80
+    networks:
+      - hello-dapr
+
+  contentsafetyservice-dapr:
+    image: "daprio/daprd:edge"
+    command: [
+      "./daprd",
+      "-app-id", "contentsafetyservice",
+      "-app-port", "80", # Match the port your app is listening on
+      "-components-path", "/components"
+    ]
+    volumes:
+      - "./components/:/components" # Mount your Dapr components folder
+    # depends_on:
+    #   - rabbitmq # Ensure Redis starts before the Dapr sidecar
+    networks:
+      - hello-dapr
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"  # AMQP port
+      - "15672:15672"  # Management UI port
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - hello-dapr
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+      - hello-dapr
+
+networks:
+  hello-dapr:
+    driver: bridge
