@@ -12,10 +12,10 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
 # Adjust the paths to copy the .csproj files
-COPY ["../ContentSafetyService.Api/ContentSafetyService.Api.csproj", "ContentSafetyService.Api/"]
-COPY ["../ContentSafetyService.Application/ContentSafetyService.Application.csproj", "ContentSafetyService.Application/"]
-COPY ["../ContentSafetyService.Domain/ContentSafetyService.Domain.csproj", "ContentSafetyService.Domain/"]
-COPY ["../ContentSafetyService.Infrastructure/ContentSafetyService.Infrastructure.csproj", "ContentSafetyService.Infrastructure/"]
+COPY ["ContentSafetyService.Api/ContentSafetyService.Api.csproj", "ContentSafetyService.Api/"]
+COPY ["ContentSafetyService.Application/ContentSafetyService.Application.csproj", "ContentSafetyService.Application/"]
+COPY ["ContentSafetyService.Domain/ContentSafetyService.Domain.csproj", "ContentSafetyService.Domain/"]
+COPY ["ContentSafetyService.Infrastructure/ContentSafetyService.Infrastructure.csproj", "ContentSafetyService.Infrastructure/"]
 
 
 RUN dotnet restore "ContentSafetyService.Api/ContentSafetyService.Api.csproj"
