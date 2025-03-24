@@ -1,5 +1,4 @@
-﻿using ContentSafetyService.Application.Configuration;
-using ContentSafetyService.Application.Services;
+﻿using ContentSafetyService.Application.Services;
 using ContentSafetyService.Application.Services.ProxyInterface;
 using ContentSafetyService.Domain;
 using ContentSafetyService.Domain.Enums;
@@ -10,15 +9,16 @@ public class ContentSafetyCommand : IContentSafetyCommand
 {
     private readonly IContentSafetyDetection _contentSafetyDetection;
     private readonly IDecisionService _decisionService;
-    private readonly IRejectionThresholdProvider _rejectionThe;
+    private readonly IRejectionThresholdProvider _rejectionThresholds;
 
-    public ContentSafetyCommand(IContentSafetyDetection contentSafetyDetection,
+    public ContentSafetyCommand(
+        IContentSafetyDetection contentSafetyDetection,
         IDecisionService decisionService,
-        IRejectionThresholdProvider rejectionThe)
+        IRejectionThresholdProvider rejectionThresholds)
     {
         _contentSafetyDetection = contentSafetyDetection;
         _decisionService = decisionService;
-        _rejectionThe = rejectionThe;
+        _rejectionThresholds = rejectionThresholds;
     }
 
     async Task<Decision> IContentSafetyCommand.ModerateContentAsync(MediaType mediaType, string content, string[] blocklists)
@@ -27,10 +27,12 @@ public class ContentSafetyCommand : IContentSafetyCommand
         var detectionResult = await _contentSafetyDetection.ContentDetectionAsync(mediaType, content, blocklists);
 
         // Load the rejection thresholds settings
-        var rejectThresholds = _rejectionThe.GetRejectionThresholds();
+        var rejectThresholds = _rejectionThresholds.GetRejectionThresholds();
 
         // Make a decision based on the detection result and reject thresholds
         var decisionResult = _decisionService.MakeDecision(detectionResult, rejectThresholds);
+
+        // Publish the decision to the event bus in infrastructure
 
         return decisionResult;
     }

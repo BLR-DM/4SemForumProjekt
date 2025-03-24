@@ -1,4 +1,7 @@
 using ContentSafetyService.Application;
+using ContentSafetyService.Application.Commands;
+using ContentSafetyService.Domain.Enums;
+using ContentSafetyService.Domain.ValueObjects;
 using ContentSafetyService.Infrastructure;
 using Dapr;
 using Dapr.AppCallback.Autogen.Grpc.v1;
@@ -50,15 +53,15 @@ app.UseCloudEvents();
 
 app.MapGet("/hello", () => "Hello World!");
 
-//app.MapPost("/moderatecontent",
-//    async (Content content, IContentSafetyCommand command) =>
-//    {
-//        var mediaType = MediaType.Text;
-//        var blocklists = Array.Empty<string>();
+app.MapPost("/contentmoderation",
+    async (Content content, IContentSafetyCommand command) =>
+    {
+        var mediaType = MediaType.Text;
+        var blocklists = Array.Empty<string>();
 
-//        var decision = await command.ModerateContentAsync(mediaType, content.Text, blocklists);
+        var decision = await command.ModerateContentAsync(mediaType, content.Text, blocklists);
 
-//        return Results.Ok(decision);
-//    }).WithTopic("pubsubName", "name");
+        return Results.Ok(decision);
+    }).WithTopic("pubsub", "contentmoderation");
 
 app.Run();
