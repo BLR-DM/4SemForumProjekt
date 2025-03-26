@@ -21,5 +21,5 @@ df_posts.to_csv(csv_filename, index=False, sep=";")
 print(f"Filen: {csv_filename} er blevet oprettet")
 
 df_loaded_posts = pd.read_csv(csv_filename)
-
+print("Indlæser data")
 print(df_loaded_posts)
