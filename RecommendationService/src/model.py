@@ -22,4 +22,6 @@ print(f"Filen: {csv_filename} er blevet oprettet")
 
 df_loaded_posts = pd.read_csv(csv_filename)
 print("Indlæser data")
+print("test123")
+
 print(df_loaded_posts)
