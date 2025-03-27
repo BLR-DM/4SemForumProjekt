@@ -1,0 +1,80 @@
+services:
+
+  # apphost:
+  #   image: apphost
+  #   build:
+  #     context: ./AppHost
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     - DOTNET_ASPIRE_DASHBOARD_API_KEY=my-secure-key
+  #     - ASPNETCORE_URLS=http://+:80
+  #   ports:
+  #     - "7007:80"
+  #   networks:
+  #     - hello-dapr
+  #   depends_on:
+  #     - aspire_dashboard
+
+  contentsafetyservice:
+    image: contentsafetyservice
+    build:
+      context: ./ContentSafetyService
+      dockerfile: /ContentSafetyService.Api/Dockerfile
+    ports:
+      - "3000:80" # Map port 80 of the container to port 3000 on the host
+    environment:
+      - ASPNETCORE_URLS=http://+:80 # Ensure your app listens on port 80
+    networks:
+      - hello-dapr
+
+  contentsafetyservice-dapr:
+    image: "daprio/daprd:edge"
+    command: [
+      "./daprd",
+      "-app-id", "contentsafetyservice",
+      "-app-port", "80", # Match the port your app is listening on
+      "-components-path", "/components"
+    ]
+    volumes:
+      - "./components/:/components" # Mount your Dapr components folder
+    depends_on:
+      - contentsafetyservice
+    networks:
+      - hello-dapr
+
+  # aspire_dashboard:
+  #   image: mcr.microsoft.com/dotnet/aspire-dashboard:9.0
+  #   environment:
+  #     DASHBOARD__FRONTEND__AUTHMODE: "Unsecured"
+  #     DASHBOARD__RESOURCESERVICECLIENT__URL: "http://host.docker.internal:7007"
+  #     DASHBOARD__RESOURCESERVICECLIENT__AUTHMODE: "Unsecured"
+  #     DOTNET__ASPIRE__DASHBOARD__API__KEY:
+  #     ASPNETCORE__HOSTINGSTARTUPASSEMBLIES:
+  #   ports:
+  #     - "18888:18888"
+  #     - "4317:18889"
+  #   networks:
+  #     - hello-dapr
+
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"  # AMQP port
+      - "15672:15672"  # Management UI port
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - hello-dapr
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+      - hello-dapr
+
+networks:
+  hello-dapr:
+    driver: bridge

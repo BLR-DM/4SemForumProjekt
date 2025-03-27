@@ -48,10 +48,11 @@ public class DecisionService : IDecisionService
             }
             actionResult[pair.Key] = action;
 
-            if (action.CompareTo(finalAction) > 0)
+            if (action.CompareTo(finalAction) > 0) // Reject > Accept in enum order (1 > 0)
             {
                 finalAction = action;
             }
+            // Could add Review as third option, so it would go as Accept, Review, Reject, making Reject override the rest
         }
 
         // blocklists
