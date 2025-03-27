@@ -8,14 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VoteService.Application\VoteService.Application.csproj" />
-    <ProjectReference Include="..\VoteService.Domain\VoteService.Domain.csproj" />
+    <ProjectReference Include="..\VoteService.Infrastructure\VoteService.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

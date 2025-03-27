@@ -9,11 +9,16 @@
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Scalar.AspNetCore" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\VoteService.Application\VoteService.Application.csproj" />
+    <ProjectReference Include="..\VoteService.DatabaseMigration\VoteService.DatabaseMigration.csproj" />
     <ProjectReference Include="..\VoteService.Domain\VoteService.Domain.csproj" />
     <ProjectReference Include="..\VoteService.Infrastructure\VoteService.Infrastructure.csproj" />
   </ItemGroup>

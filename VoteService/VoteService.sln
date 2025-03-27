@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoteService.Application", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoteService.Domain", "VoteService.Domain\VoteService.Domain.csproj", "{44A5F708-6D31-45E4-8FC0-F743A774A17D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoteService.DatabaseMigration", "VoteService.DatabaseMigration\VoteService.DatabaseMigration.csproj", "{A72A6663-721C-4410-AAD7-15D543CDF207}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{44A5F708-6D31-45E4-8FC0-F743A774A17D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44A5F708-6D31-45E4-8FC0-F743A774A17D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44A5F708-6D31-45E4-8FC0-F743A774A17D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A72A6663-721C-4410-AAD7-15D543CDF207}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A72A6663-721C-4410-AAD7-15D543CDF207}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A72A6663-721C-4410-AAD7-15D543CDF207}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A72A6663-721C-4410-AAD7-15D543CDF207}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
