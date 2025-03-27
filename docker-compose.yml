@@ -1,4 +1,20 @@
 services:
+
+  # apphost:
+  #   image: apphost
+  #   build:
+  #     context: ./AppHost
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     - DOTNET_ASPIRE_DASHBOARD_API_KEY=my-secure-key
+  #     - ASPNETCORE_URLS=http://+:80
+  #   ports:
+  #     - "7007:80"
+  #   networks:
+  #     - hello-dapr
+  #   depends_on:
+  #     - aspire_dashboard
+
   contentsafetyservice:
     image: contentsafetyservice
     build:
@@ -21,13 +37,27 @@ services:
     ]
     volumes:
       - "./components/:/components" # Mount your Dapr components folder
-    # depends_on:
-    #   - rabbitmq # Ensure Redis starts before the Dapr sidecar
+    depends_on:
+      - contentsafetyservice
     networks:
       - hello-dapr
 
+  # aspire_dashboard:
+  #   image: mcr.microsoft.com/dotnet/aspire-dashboard:9.0
+  #   environment:
+  #     DASHBOARD__FRONTEND__AUTHMODE: "Unsecured"
+  #     DASHBOARD__RESOURCESERVICECLIENT__URL: "http://host.docker.internal:7007"
+  #     DASHBOARD__RESOURCESERVICECLIENT__AUTHMODE: "Unsecured"
+  #     DOTNET__ASPIRE__DASHBOARD__API__KEY:
+  #     ASPNETCORE__HOSTINGSTARTUPASSEMBLIES:
+  #   ports:
+  #     - "18888:18888"
+  #     - "4317:18889"
+  #   networks:
+  #     - hello-dapr
+
   rabbitmq:
-    image: rabbitmq:3-management
+    image: rabbitmq:4-management
     container_name: rabbitmq
     ports:
       - "5672:5672"  # AMQP port
