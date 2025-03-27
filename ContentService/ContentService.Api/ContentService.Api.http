@@ -4,3 +4,10 @@ GET {{ContentService.Api_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+POST {{ContentService.Api_HostAddress}}/post/
+Content-Type: application/json
+Accept: application/json
+{
+  "ForumName": "My New Forum"
+}
+

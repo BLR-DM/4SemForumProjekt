@@ -2,11 +2,6 @@
 using ContentService.Application.Commands.CommandDto.PostDto;
 using ContentService.Application.Commands.Interfaces;
 using ContentService.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ContentService.Application.Commands
 {
@@ -19,6 +14,48 @@ namespace ContentService.Application.Commands
         {
             _unitOfWork = unitOfWork;
             _forumRepository = forumRepository;
+        }
+
+        async Task IForumCommand.CreateForumAsync(CreateForumDto forumDto)
+        {
+            try
+            {
+                //await _unitOfWork.BeginTransaction();
+
+                // Do
+                var forum = Forum.Create(forumDto.ForumName);
+                await _forumRepository.AddForumAsync(forum);
+
+                // Save
+                //await _unitOfWork.Commit();
+            }
+            catch (Exception)
+            {
+                //await _unitOfWork.Rollback();
+                throw;
+            }
+        }
+
+        async Task IForumCommand.DeleteForumAsync(DeleteForumDto forumDto, int forumId)
+        {
+            try
+            {
+                await _unitOfWork.BeginTransaction();
+
+                // Load
+                var forum = await _forumRepository.GetForumAsync(forumId);
+
+                // Do
+                _forumRepository.DeleteForum(forum, forumDto.RowVersion);
+
+                // Save
+                await _unitOfWork.Commit();
+            }
+            catch (Exception)
+            {
+                await _unitOfWork.Rollback();
+                throw;
+            }
         }
 
         async Task IForumCommand.CreatePostAsync(CreatePostDto postDto, string appUserId, string role, int forumId)
@@ -81,48 +118,6 @@ namespace ContentService.Application.Commands
                 _forumRepository.DeletePost(post, postDto.RowVersion);
 
                 //Save
-                await _unitOfWork.Commit();
-            }
-            catch (Exception)
-            {
-                await _unitOfWork.Rollback();
-                throw;
-            }
-        }
-
-        async Task IForumCommand.CreateForumAsync(CreateForumDto forumDto)
-        {
-            try
-            {
-                await _unitOfWork.BeginTransaction();
-
-                // Do
-                var forum = Forum.Create(forumDto.Name);
-                await _forumRepository.AddForumAsync(forum);
-
-                // Save
-                await _unitOfWork.Commit();
-            }
-            catch (Exception)
-            {
-                await _unitOfWork.Rollback();
-                throw;
-            }
-        }
-
-        async Task IForumCommand.DeleteForumAsync(DeleteForumDto forumDto, int forumId)
-        {
-            try
-            {
-                await _unitOfWork.BeginTransaction();
-
-                // Load
-                var forum = await _forumRepository.GetForumAsync(forumId);
-
-                // Do
-                _forumRepository.DeleteForum(forum, forumDto.RowVersion);
-
-                // Save
                 await _unitOfWork.Commit();
             }
             catch (Exception)

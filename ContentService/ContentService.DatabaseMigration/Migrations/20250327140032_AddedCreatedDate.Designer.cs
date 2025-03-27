@@ -3,6 +3,7 @@ using System;
 using ContentService.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ContentService.DatabaseMigration.Migrations
 {
     [DbContext(typeof(ContentContext))]
-    partial class ContentContextModelSnapshot : ModelSnapshot
+    [Migration("20250327140032_AddedCreatedDate")]
+    partial class AddedCreatedDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,7 +67,7 @@ namespace ContentService.DatabaseMigration.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp(0) without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ForumName")
                         .IsRequired()

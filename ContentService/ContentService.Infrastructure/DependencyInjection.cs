@@ -1,12 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using ContentService.Application;
+using ContentService.Infrastructure.Repositories;
 
 namespace ContentService.Infrastructure
 {
@@ -15,15 +11,14 @@ namespace ContentService.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
 
+            services.AddScoped<IForumRepository, ForumRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork<ContentContext>>();
+
             // Add-Migration InitialMigration -Context ContentContext -Project ContentService.DatabaseMigration
             // Update-Database -Context ContentContext -Project ContentService.DatabaseMigration
             services.AddDbContext<ContentContext>(options =>
-                options.UseNpgsql(
-                    configuration.GetConnectionString
-                        ("ContentDbConnection"),
-                    x =>
-                        x.MigrationsAssembly("ContentService.DatabaseMigration")));
-            
+                options.UseNpgsql(configuration.GetConnectionString("ContentDbConnection"),
+                    x => x.MigrationsAssembly("ContentService.DatabaseMigration")));
 
             return services;
         }
