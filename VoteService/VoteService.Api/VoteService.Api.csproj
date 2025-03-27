@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VoteService.Application\VoteService.Application.csproj" />
+    <ProjectReference Include="..\VoteService.DatabaseMigration\VoteService.DatabaseMigration.csproj" />
     <ProjectReference Include="..\VoteService.Domain\VoteService.Domain.csproj" />
     <ProjectReference Include="..\VoteService.Infrastructure\VoteService.Infrastructure.csproj" />
   </ItemGroup>
