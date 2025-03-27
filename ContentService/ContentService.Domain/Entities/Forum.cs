@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ContentService.Domain.Entities
+﻿namespace ContentService.Domain.Entities
 {
     public class Forum : DomainEntity
     {
@@ -16,16 +10,29 @@ namespace ContentService.Domain.Entities
 
         private Forum(string name)
         {
-            Name = name;
+            ForumName = name;
+            CreatedDate = DateTime.Now;
         }
 
-        public string Name { get; protected set; }
+        public string ForumName { get; protected set; } // Value?
+        //public string Description { get; protected set; } // Value?
+        public DateTime CreatedDate { get; protected set; }
         public IReadOnlyCollection<Post> Posts => _posts;
+
+
+        // Forum
 
         public static Forum Create(string name)
         {
             return new Forum(name);
         }
+
+        public void Update(string name)
+        {
+            ForumName = name;
+        }
+
+        // Post
 
         public void AddPost(string description, string appUserId)
         {

@@ -1,10 +1,5 @@
 ﻿using ContentService.Application.Commands.CommandDto.ForumDto;
 using ContentService.Application.Commands.CommandDto.PostDto;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ContentService.Application.Commands.Interfaces
 {
