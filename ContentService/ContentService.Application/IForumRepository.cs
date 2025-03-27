@@ -10,6 +10,7 @@ namespace ContentService.Application
     public interface IForumRepository
     {
         Task AddForumAsync(Forum forum);
+        Task UpdateForumAsync(Forum forum);
         Task<Forum> GetForumAsync(int id);
         Task<Forum> GetForumWithSinglePostAsync(int forumId, int postId);
         void DeleteForum(Forum forum, byte[] rowVersion);

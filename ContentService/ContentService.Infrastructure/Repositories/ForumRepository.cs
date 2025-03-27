@@ -18,6 +18,11 @@ namespace ContentService.Infrastructure.Repositories
             await _db.SaveChangesAsync();
         }
 
+        async Task IForumRepository.UpdateForumAsync(Forum forum)
+        {
+            await _db.SaveChangesAsync();
+        }
+
         void IForumRepository.DeleteForum(Forum forum, byte[] rowVersion)
         {
             throw new NotImplementedException();

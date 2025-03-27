@@ -1,4 +1,6 @@
-﻿namespace ContentService.Domain.Entities
+﻿using ContentService.Domain.Enums;
+
+namespace ContentService.Domain.Entities
 {
     public class Forum : DomainEntity
     {
@@ -8,28 +10,48 @@
         {
         }
 
-        private Forum(string name)
+        private Forum(string forumName, int creatorId)
         {
-            ForumName = name;
+            ForumName = forumName;
             CreatedDate = DateTime.Now;
+            CreatorId = creatorId;
+            Status = Status.Submitted;
         }
 
         public string ForumName { get; protected set; } // Value?
         //public string Description { get; protected set; } // Value?
         public DateTime CreatedDate { get; protected set; }
+        public int CreatorId { get; protected set; }
+        public Status Status { get; protected set; }
         public IReadOnlyCollection<Post> Posts => _posts;
 
 
         // Forum
 
-        public static Forum Create(string name)
+        public static Forum Create(string forumName, int creatorId)
         {
-            return new Forum(name);
+            return new Forum(forumName, creatorId);
         }
 
-        public void Update(string name)
+        public void Approve()
         {
-            ForumName = name;
+            if (Status != Status.Submitted)
+                throw new InvalidOperationException("Only submitted forums can be approved");
+
+            Status = Status.Approved;
+        }
+
+        public void Publish()
+        {
+            if (Status != Status.Approved)
+                throw new InvalidOperationException("Only approved forums can be published");
+
+            Status = Status.Published;
+        }
+
+        public void Update(string forumName)
+        {
+            ForumName = forumName;
         }
 
         // Post

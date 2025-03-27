@@ -2,6 +2,7 @@ using ContentService.Application;
 using ContentService.Application.Commands.CommandDto.ForumDto;
 using ContentService.Application.Commands.Interfaces;
 using ContentService.Infrastructure;
+using Dapr;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,14 +37,36 @@ if (app.Environment.IsDevelopment())
 //app.UseHttpsRedirection(); 
 
 app.UseCors("AllowAspire");
+//app.UseCloudEvents();  <= Use?
+app.MapSubscribeHandler();
+
 
 app.MapGet("/hello", () => "Hello World!");
 
-app.MapPost("/post", async (IForumCommand command, CreateForumDto forumDto) =>
+
+///// Endpoint verbs forum/... or need to configure CloudEvents payload etc.
+
+app.MapPost("/forum", async (IForumCommand command, CreateForumDto forumDto, int creatorId) =>
 {
-    await command.CreateForumAsync(forumDto);
+    await command.CreateForumAsync(forumDto, creatorId);
     return Results.Ok();
 });
+
+app.MapPost("/forum/approved", [Topic("pubsub", "forumApproved")]
+    async (IForumCommand command, PublishForumDto forumDto) =>
+{
+    await command.HandleApprovalAsync(forumDto);
+    return Results.Ok();
+});
+
+app.MapPost("/forum/published", [Topic("pubsub", "forumToPublish")]
+async (IForumCommand command, PublishForumDto forumDto) =>
+{
+    await command.HandlePublishAsync(forumDto);
+    return Results.Ok();
+});
+
+
 
 app.Run();
 

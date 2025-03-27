@@ -2,6 +2,7 @@
 using ContentService.Application.Commands.CommandDto.PostDto;
 using ContentService.Application.Commands.Interfaces;
 using ContentService.Domain.Entities;
+using ContentService.Domain.Enums;
 
 namespace ContentService.Application.Commands
 {
@@ -16,17 +17,83 @@ namespace ContentService.Application.Commands
             _forumRepository = forumRepository;
         }
 
-        async Task IForumCommand.CreateForumAsync(CreateForumDto forumDto)
+        async Task IForumCommand.CreateForumAsync(CreateForumDto forumDto, int creatorId)
+        {
+            try
+            {
+                //await _unitOfWork.BeginTransaction();
+                // Do
+                var forum = Forum.Create(forumDto.ForumName, creatorId);
+
+                // Save
+                await _forumRepository.AddForumAsync(forum);
+
+                // Publish event (must happen AFTER saving to DB)
+                // await _dapr.PublishEventAsync("pubsub", "forumSubmitted", forumDto);
+                //await _unitOfWork.Commit();
+            }
+            catch (Exception)
+            {
+                //await _unitOfWork.Rollback();
+                throw;
+            }
+        }
+
+        //[Topic("pubsub", "forumApproved")]
+        async Task IForumCommand.HandleApprovalAsync(PublishForumDto forumDto)
+        {
+            try
+            {
+                //await _unitOfWork.BeginTransaction();
+                
+                // Load
+                var forum = await _forumRepository.GetForumAsync(forumDto.Id);
+
+                // Idempotency check
+                if (forum.Status == Status.Approved)
+                    return;
+
+                // Do
+                forum.Approve();
+
+                // Save
+                await _forumRepository.UpdateForumAsync(forum);
+
+                // Publish event
+                // await _dapr.PublishEventAsync("pubsub", "forumReadyToPublish", forum.Id);
+
+                //await _unitOfWork.Commit();
+            }
+            catch (Exception)
+            {
+                //await _unitOfWork.Rollback();
+                throw;
+            }
+        }
+
+        //[Topic("pubsub", "forumToPublish")]
+        async Task IForumCommand.HandlePublishAsync(PublishForumDto forumDto)
         {
             try
             {
                 //await _unitOfWork.BeginTransaction();
 
+                // Load
+                var forum = await _forumRepository.GetForumAsync(forumDto.Id);
+
+                // Idempotency check
+                if (forum.Status == Status.Published)
+                    return;
+
+                // Publish event
+                // await _dapr.PublishEventAsync("pubsub", "forumPublished", forum);
+
                 // Do
-                var forum = Forum.Create(forumDto.ForumName);
-                await _forumRepository.AddForumAsync(forum);
+                forum.Publish();
 
                 // Save
+                await _forumRepository.UpdateForumAsync(forum);
+
                 //await _unitOfWork.Commit();
             }
             catch (Exception)
