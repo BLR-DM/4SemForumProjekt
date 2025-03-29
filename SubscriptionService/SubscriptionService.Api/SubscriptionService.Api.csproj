@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SubscriptionService.Application\SubscriptionService.Application.csproj" />
+    <ProjectReference Include="..\SubscriptionService.DatabaseMigration\SubscriptionService.DatabaseMigration.csproj" />
     <ProjectReference Include="..\SubscriptionService.Domain\SubscriptionService.Domain.csproj" />
     <ProjectReference Include="..\SubscriptionService.Infrastructure\SubscriptionService.Infrastructure.csproj" />
   </ItemGroup>
