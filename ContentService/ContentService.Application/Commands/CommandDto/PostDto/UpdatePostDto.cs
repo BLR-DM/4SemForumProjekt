@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace ContentService.Application.Commands.CommandDto.PostDto
 {
-    public record UpdatePostDto(string Description, byte[] RowVersion);
+    public record UpdatePostDto(string Title, string Description, byte[] RowVersion);
 }

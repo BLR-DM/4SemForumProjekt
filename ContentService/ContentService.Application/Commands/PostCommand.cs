@@ -1,11 +1,5 @@
 ﻿using ContentService.Application.Commands.CommandDto.CommentDto;
 using ContentService.Application.Commands.Interfaces;
-using ContentService.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ContentService.Application.Commands
 {
@@ -26,7 +20,7 @@ namespace ContentService.Application.Commands
         {
             try
             {
-                await _unitOfWork.BeginTransaction();
+                //await _unitOfWork.BeginTransaction();
 
                 // Load
                 var forum = await _forumRepository.GetForumWithSinglePostAsync(forumId, postId);
@@ -38,11 +32,11 @@ namespace ContentService.Application.Commands
                 post.CreateComment(username, commentDto.Text, appUserId);
 
                 // Save 
-                await _unitOfWork.Commit();
+                //await _unitOfWork.Commit();
             }
             catch (Exception)
             {
-                await _unitOfWork.Rollback();
+                //await _unitOfWork.Rollback();
                 throw;
             }
         }
@@ -52,7 +46,7 @@ namespace ContentService.Application.Commands
         {
             try
             {
-                await _unitOfWork.BeginTransaction();
+                //await _unitOfWork.BeginTransaction();
 
                 // Load
                 var forum = await _forumRepository.GetForumWithSinglePostAsync(forumId, postId);
@@ -65,11 +59,11 @@ namespace ContentService.Application.Commands
 
                 // Save
                 _forumRepository.UpdateComment(comment, commentDto.RowVersion);
-                await _unitOfWork.Commit();
+                // await _unitOfWork.Commit();
             }
             catch (Exception)
             {
-                await _unitOfWork.Rollback();
+                // await _unitOfWork.Rollback();
                 throw;
             }
         }

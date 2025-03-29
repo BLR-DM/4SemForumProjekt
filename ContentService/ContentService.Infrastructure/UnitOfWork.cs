@@ -45,7 +45,7 @@ namespace ContentService.Infrastructure
         async Task IUnitOfWork.BeginTransaction(IsolationLevel isolationLevel)
         {
             if (_db.Database.CurrentTransaction != null) return;
-            _transaction = await _db.Database.BeginTransactionAsync();
+            _transaction = await _db.Database.BeginTransactionAsync(isolationLevel);
             
 
         }

@@ -10,27 +10,27 @@ namespace ContentService.Domain.Entities
         {
         }
 
-        private Forum(string forumName, int creatorId)
+        private Forum(string forumName, string appUserId)
         {
             ForumName = forumName;
             CreatedDate = DateTime.Now;
-            CreatorId = creatorId;
+            AppUserId = appUserId;
             Status = Status.Submitted;
         }
 
         public string ForumName { get; protected set; } // Value?
-        //public string Description { get; protected set; } // Value?
+        //public string Content { get; protected set; } // Value?
         public DateTime CreatedDate { get; protected set; }
-        public int CreatorId { get; protected set; }
+        public string AppUserId { get; protected set; }
         public Status Status { get; protected set; }
         public IReadOnlyCollection<Post> Posts => _posts;
 
 
         // Forum
 
-        public static Forum Create(string forumName, int creatorId)
+        public static Forum Create(string forumName, string appUserId)
         {
-            return new Forum(forumName, creatorId);
+            return new Forum(forumName, appUserId);
         }
 
         public void Approve()
@@ -56,16 +56,16 @@ namespace ContentService.Domain.Entities
 
         // Post
 
-        public void AddPost(string description, string appUserId)
+        public void AddPost(string title, string content, string username, string appUserId)
         {
-            var post = Post.Create(description, appUserId);
+            var post = Post.Create(title, content, username, appUserId);
             _posts.Add(post);
         }
 
-        public Post UpdatePost(int postId, string description, string appUserId)
+        public Post UpdatePost(int postId, string title, string content, string appUserId)
         {
             var post = GetPostById(postId);
-            post.Update(description, appUserId);
+            post.Update(content, appUserId);
             return post;
         }
 

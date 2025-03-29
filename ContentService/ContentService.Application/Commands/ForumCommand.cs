@@ -17,20 +17,21 @@ namespace ContentService.Application.Commands
             _forumRepository = forumRepository;
         }
 
-        async Task IForumCommand.CreateForumAsync(CreateForumDto forumDto, int creatorId)
+        async Task IForumCommand.CreateForumAsync(CreateForumDto forumDto, string appUserId)
         {
             try
             {
-                //await _unitOfWork.BeginTransaction();
                 // Do
-                var forum = Forum.Create(forumDto.ForumName, creatorId);
+                var forum = Forum.Create(forumDto.ForumName, appUserId);
+
+                //await _unitOfWork.BeginTransaction();
 
                 // Save
                 await _forumRepository.AddForumAsync(forum);
+                //await _unitOfWork.Commit();
 
                 // Publish event (must happen AFTER saving to DB)
                 // await _dapr.PublishEventAsync("pubsub", "forumSubmitted", forumDto);
-                //await _unitOfWork.Commit();
             }
             catch (Exception)
             {
@@ -107,7 +108,7 @@ namespace ContentService.Application.Commands
         {
             try
             {
-                await _unitOfWork.BeginTransaction();
+                // await _unitOfWork.BeginTransaction();
 
                 // Load
                 var forum = await _forumRepository.GetForumAsync(forumId);
@@ -116,33 +117,34 @@ namespace ContentService.Application.Commands
                 _forumRepository.DeleteForum(forum, forumDto.RowVersion);
 
                 // Save
-                await _unitOfWork.Commit();
+                //await _unitOfWork.Commit();
             }
             catch (Exception)
             {
-                await _unitOfWork.Rollback();
+                // await _unitOfWork.Rollback();
                 throw;
             }
         }
 
-        async Task IForumCommand.CreatePostAsync(CreatePostDto postDto, string appUserId, string role, int forumId)
+        async Task IForumCommand.CreatePostAsync(CreatePostDto postDto, string username, string appUserId, string role, int forumId)
         {
             try
             {
-                await _unitOfWork.BeginTransaction();
+                // await _unitOfWork.BeginTransaction();
 
                 // Load
                 var forum = await _forumRepository.GetForumAsync(forumId);
 
                 // Do
-                forum.AddPost(postDto.Description, appUserId);
+                forum.AddPost(postDto.Title, postDto.Description, username, appUserId);
 
                 //Save
-                await _unitOfWork.Commit();
+                await _forumRepository.UpdateForumAsync(forum);
+                // await _unitOfWork.Commit();
             }
             catch (Exception)
             {
-                await _unitOfWork.Rollback();
+                // await _unitOfWork.Rollback();
                 throw;
             }
         }
@@ -151,22 +153,22 @@ namespace ContentService.Application.Commands
         {
             try
             {
-                await _unitOfWork.BeginTransaction();
+                // await _unitOfWork.BeginTransaction();
 
                 // Load
                 var forum = await _forumRepository.GetForumAsync(forumId);
 
                 // Do
-                var post = forum.UpdatePost(postId, postDto.Description,
+                var post = forum.UpdatePost(postId, postDto.Title, postDto.Description,
                     appUserId);
                 _forumRepository.UpdatePost(post, postDto.RowVersion);
 
                 //Save
-                await _unitOfWork.Commit();
+                // await _unitOfWork.Commit();
             }
             catch (Exception)
             {
-                await _unitOfWork.Rollback();
+                // await _unitOfWork.Rollback();
                 throw;
             }
         }
@@ -175,7 +177,7 @@ namespace ContentService.Application.Commands
         {
             try
             {
-                await _unitOfWork.BeginTransaction();
+                // await _unitOfWork.BeginTransaction();
 
                 // Load
                 var forum = await _forumRepository.GetForumAsync(forumId);
@@ -185,11 +187,11 @@ namespace ContentService.Application.Commands
                 _forumRepository.DeletePost(post, postDto.RowVersion);
 
                 //Save
-                await _unitOfWork.Commit();
+                // await _unitOfWork.Commit();
             }
             catch (Exception)
             {
-                await _unitOfWork.Rollback();
+                // await _unitOfWork.Rollback();
                 throw;
             }
         }

@@ -15,4 +15,8 @@
     <ProjectReference Include="..\ContentService.Infrastructure\ContentService.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

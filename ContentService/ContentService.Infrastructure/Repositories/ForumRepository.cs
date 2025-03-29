@@ -1,5 +1,6 @@
 ﻿using ContentService.Application;
 using ContentService.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ContentService.Infrastructure.Repositories
 {
@@ -33,9 +34,16 @@ namespace ContentService.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        Task<Forum> IForumRepository.GetForumAsync(int id)
+        async Task<Forum> IForumRepository.GetForumAsync(int forumId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _db.Forums.FirstAsync(forum => forum.Id == forumId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         Task<Forum> IForumRepository.GetForumWithSinglePostAsync(int forumId, int postId)
