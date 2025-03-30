@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using VoteService.Application.Queries.Interfaces;
 using VoteService.Domain.Interfaces;
+using VoteService.Infrastructure.Queries;
 using VoteService.Infrastructure.Repositories;
 
 namespace VoteService.Infrastructure
@@ -17,6 +19,8 @@ namespace VoteService.Infrastructure
             IConfiguration configuration)
         {
             services.AddScoped<IPostVoteRepository, PostVoteRepository>();
+            services.AddScoped<ICommentVoteRepository, CommentVoteRepository>();
+            services.AddScoped<IPostVoteQuery, PostVoteQuery>();
 
             // Add-Migration InitialMigration -Context VoteContext -Project VoteService.DatabaseMigration
             // Update-Database -Context VoteContext -Project VoteService.DatabaseMigration

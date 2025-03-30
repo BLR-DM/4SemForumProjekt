@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -15,30 +15,28 @@ namespace VoteService.DatabaseMigration.Migrations
                 name: "CommentVotes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<string>(type: "text", nullable: false),
                     CommentId = table.Column<string>(type: "text", nullable: false),
-                    VoteType = table.Column<bool>(type: "boolean", nullable: false)
+                    VoteType = table.Column<bool>(type: "boolean", nullable: false),
+                    VotedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CommentVotes", x => x.Id);
+                    table.PrimaryKey("PK_CommentVotes", x => new { x.CommentId, x.UserId });
                 });
 
             migrationBuilder.CreateTable(
                 name: "PostVotes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<string>(type: "text", nullable: false),
                     PostId = table.Column<string>(type: "text", nullable: false),
-                    VoteType = table.Column<bool>(type: "boolean", nullable: false)
+                    VoteType = table.Column<bool>(type: "boolean", nullable: false),
+                    VotedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PostVotes", x => x.Id);
+                    table.PrimaryKey("PK_PostVotes", x => new { x.PostId, x.UserId });
                 });
         }
 
