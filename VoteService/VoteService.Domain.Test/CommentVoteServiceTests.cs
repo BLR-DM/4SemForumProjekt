@@ -54,4 +54,23 @@ public class CommentVoteServiceTests
         _mockRepository.Verify(repo => repo.UpdateVoteAsync(It.Is<CommentVote>
             (v => v.UserId == userId && v.CommentId == commentId && v.VoteType == newVoteType)));
     }
+
+    [Fact]
+    public async Task ToggleCommentVoteAsync_DeleteVote_WhenVoteTypeSame()
+    {
+        // Arrange
+        var userId = "user1";
+        var commentId = "comment1";
+        var voteType = true;
+        var existingVote = CommentVote.Create(userId, commentId, voteType);
+
+        _mockRepository.Setup(repo => repo.GetVoteByUserIdAsync(userId, commentId))
+            .ReturnsAsync(existingVote);
+
+        // Act
+        _commentVoteService.ToggleCommentVoteAsync(userId, commentId, voteType);
+
+        // Assert
+        _mockRepository.Verify(repo => repo.DeleteCommentVoteAsync(existingVote));
+    }
 }
