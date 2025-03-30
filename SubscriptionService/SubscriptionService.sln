@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\Directory.Packages.props = ..\Directory.Packages.props
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubscriptionService.DatabaseMigration", "SubscriptionService.DatabaseMigration\SubscriptionService.DatabaseMigration.csproj", "{A1858EE7-9B4D-4839-9D6D-0BA478E09DE3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{652BB8EA-D55E-41B7-B082-BD56E57D6168}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{652BB8EA-D55E-41B7-B082-BD56E57D6168}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{652BB8EA-D55E-41B7-B082-BD56E57D6168}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1858EE7-9B4D-4839-9D6D-0BA478E09DE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1858EE7-9B4D-4839-9D6D-0BA478E09DE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1858EE7-9B4D-4839-9D6D-0BA478E09DE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1858EE7-9B4D-4839-9D6D-0BA478E09DE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
