@@ -1,3 +1,4 @@
+﻿using ContentService.Api.Endpoints;
 using ContentService.Application;
 using ContentService.Application.Commands.CommandDto.ForumDto;
 using ContentService.Application.Commands.Interfaces;
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
@@ -43,33 +45,26 @@ app.MapSubscribeHandler();
 
 app.MapGet("/hello", () => "Hello World!");
 
+/* Flow:
+ContentService => contentSubmitted => ContentSafetyService moderates => contentApproved => ContentService saves => contentToPublish => ContentService saves => contentPublished
 
-///// Endpoint verbs forum/... or need to configure CloudEvents payload etc.
-///
-///  MapGroup remove forum prefix
+With workflow:
+// High-Level Overview //
 
-app.MapPost("/forum",
-    async (IForumCommand command, CreateForumDto forumDto, string appUserId) =>
-    {
-        await command.CreateForumAsync(forumDto, appUserId);
-        return Results.Ok();
-    });
+1. User Creates Forum → ContentService receives request.
 
-//app.MapPost("/forum/approved",
-//    async (IForumCommand command, PublishForumDto forumDto) =>
-//    {
-//        await command.HandleApprovalAsync(forumDto);
-//        return Results.Ok();
-//    }).WithTopic("pubsub", "forumApproved");
+2. Triggers Workflow → WorkflowService orchestrates the process.
 
-//app.MapPost("/forum/publish",
-//    async (IForumCommand command, PublishForumDto forumDto) =>
-//    {
-//        await command.HandlePublishAsync(forumDto);
-//        return Results.Ok();
-//    }).WithTopic("pubsub", "forumToPublish");
+3. Runs Content Safety Checks → ContentSafetyService validates content.
 
+4. Updates State Store → If approved, ContentService persists forum.
 
+5. Workflow Completes → Final status is updated, and forum is published.
+
+*/
+app.MapForumEndpoints();
+app.MapPostEndpoints();
+app.MapCommentEndpoints();
 
 app.Run();
 

@@ -9,6 +9,7 @@ namespace ContentService.Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddScoped<IForumCommand, ForumCommand>();
+            services.AddScoped<IPostCommand, PostCommand>();
 
             return services;
         }

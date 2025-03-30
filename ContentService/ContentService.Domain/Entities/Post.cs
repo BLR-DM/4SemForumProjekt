@@ -26,9 +26,9 @@
         //public ICollection<PostHistory> History => _history;
         public IReadOnlyCollection<Comment> Comments => _comments;
 
-        public static Post Create(string title,string description, string username, string appUserId)
+        public static Post Create(string title,string content, string username, string appUserId)
         {
-            return new Post(title, description, username, appUserId);
+            return new Post(title, content, username, appUserId);
         }
 
         public void Update(string newDescription, string userId)
@@ -47,7 +47,7 @@
         private void AssureUserIsCreator(string userId)
         {
             if (!AppUserId.Equals(userId))
-                throw new ArgumentException("Only the creater of the post can edit it");
+                throw new ArgumentException("Only the creater of the post can edit this");
         }
 
 
@@ -62,7 +62,7 @@
         public Comment UpdateComment(int commentId, string content, string appUserId)
         {
             if (!AppUserId.Equals(appUserId))
-                throw new ArgumentException("Only the creater of the post can edit it");
+                throw new ArgumentException("Only the creater of the post can edit this");
 
             var comment = Comments.FirstOrDefault(c => c.Id == commentId);
             if (comment is null) throw new ArgumentException("Comment not found");

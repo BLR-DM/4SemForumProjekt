@@ -11,3 +11,22 @@ Accept: application/json
     "forumName": "My New Forum"
 }
 
+###
+POST {{ContentService.Api_HostAddress}}/forum/1/post?appUserId=1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "Title": "My First Post",
+    "Content": "This is the content of my post"
+}
+
+###
+POST {{ContentService.Api_HostAddress}}/forum/1/post/1/comment?appUserId=1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "Content": "This is my first comment"
+}
+

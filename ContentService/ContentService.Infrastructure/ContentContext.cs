@@ -1,5 +1,4 @@
-﻿using ContentService.Domain;
-using ContentService.Domain.Entities;
+﻿using ContentService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContentService.Infrastructure
@@ -16,36 +15,42 @@ namespace ContentService.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Concurrency token for RowVersion (xmin)
-
             // Forum
             modelBuilder.Entity<Forum>()
                 .Property(x => x.RowVersion)
                 .IsConcurrencyToken();
+
             modelBuilder.Entity<Forum>()
                 .Property(f => f.Status)
                 .HasConversion<string>(); // Stores enum as a string
+
+            modelBuilder.Entity<Forum>()
+                .Property(f => f.CreatedDate)
+                .HasColumnType("timestamp(0) without time zone");
 
             // Post
             modelBuilder.Entity<Post>()
                 .Property(x => x.RowVersion)
                 .IsConcurrencyToken();
 
+            modelBuilder.Entity<Post>()
+                .Property(f => f.CreatedDate)
+                .HasColumnType("timestamp(0) without time zone");
+
             // Comment
             modelBuilder.Entity<Comment>()
                 .Property(x => x.RowVersion)
                 .IsConcurrencyToken();
 
-            
+            modelBuilder.Entity<Comment>()
+                .Property(f => f.CreatedDate)
+                .HasColumnType("timestamp(0) without time zone");
+
 
             // Table mappings on entities
             modelBuilder.Entity<Post>().ToTable("Posts");
             modelBuilder.Entity<Comment>().ToTable("Comments");
             modelBuilder.Entity<Forum>().ToTable("Forums");
-
-            modelBuilder.Entity<Forum>()
-                .Property(f => f.CreatedDate)
-                .HasColumnType("timestamp(0) without time zone");
         }
     }
 }

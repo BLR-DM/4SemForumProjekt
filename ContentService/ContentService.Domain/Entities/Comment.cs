@@ -14,7 +14,6 @@
             AppUserId = appUserId;
         }
         
-
         public string Username { get; protected set; }
         public string Text { get; protected set; }
         public DateTime CreatedDate { get; protected set; }

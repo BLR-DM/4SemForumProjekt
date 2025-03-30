@@ -29,7 +29,7 @@ namespace ContentService.Application.Commands
                 var post = forum.GetPostById(postId);
 
                 // Do
-                post.CreateComment(username, commentDto.Text, appUserId);
+                post.CreateComment(username, commentDto.Content, appUserId);
 
                 // Save 
                 //await _unitOfWork.Commit();
@@ -55,7 +55,7 @@ namespace ContentService.Application.Commands
                 var post = forum.GetPostById(postId);
 
                 // Do
-                var comment = post.UpdateComment(commentId, commentDto.Text, appUserId);
+                var comment = post.UpdateComment(commentId, commentDto.Content, appUserId);
 
                 // Save
                 _forumRepository.UpdateComment(comment, commentDto.RowVersion);

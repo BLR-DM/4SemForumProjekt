@@ -126,7 +126,7 @@ namespace ContentService.Application.Commands
             }
         }
 
-        async Task IForumCommand.CreatePostAsync(CreatePostDto postDto, string username, string appUserId, string role, int forumId)
+        async Task IForumCommand.CreatePostAsync(CreatePostDto postDto, string username, string appUserId, int forumId)
         {
             try
             {
@@ -136,7 +136,7 @@ namespace ContentService.Application.Commands
                 var forum = await _forumRepository.GetForumAsync(forumId);
 
                 // Do
-                forum.AddPost(postDto.Title, postDto.Description, username, appUserId);
+                forum.AddPost(postDto.Title, postDto.Content, username, appUserId);
 
                 //Save
                 await _forumRepository.UpdateForumAsync(forum);
@@ -149,7 +149,7 @@ namespace ContentService.Application.Commands
             }
         }
 
-        async Task IForumCommand.UpdatePostAsync(UpdatePostDto postDto, string appUserId, string role, int postId, int forumId)
+        async Task IForumCommand.UpdatePostAsync(UpdatePostDto postDto, string appUserId, int postId, int forumId)
         {
             try
             {
@@ -173,7 +173,7 @@ namespace ContentService.Application.Commands
             }
         }
 
-        async Task IForumCommand.DeletePostAsync(DeletePostDto postDto, string appUserId, string role, int postId, int forumId)
+        async Task IForumCommand.DeletePostAsync(DeletePostDto postDto, string appUserId, int postId, int forumId)
         {
             try
             {

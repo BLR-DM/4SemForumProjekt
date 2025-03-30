@@ -24,12 +24,12 @@ namespace ContentService.Infrastructure.Repositories
             await _db.SaveChangesAsync();
         }
 
-        void IForumRepository.DeleteForum(Forum forum, byte[] rowVersion)
+        void IForumRepository.DeleteForum(Forum forum, uint rowVersion)
         {
             throw new NotImplementedException();
         }
 
-        void IForumRepository.DeletePost(Post post, byte[] rowVersion)
+        void IForumRepository.DeletePost(Post post, uint rowVersion)
         {
             throw new NotImplementedException();
         }
@@ -51,12 +51,12 @@ namespace ContentService.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        void IForumRepository.UpdateComment(Comment comment, byte[] rowVersion)
+        void IForumRepository.UpdateComment(Comment comment, uint rowVersion)
         {
             throw new NotImplementedException();
         }
 
-        void IForumRepository.UpdatePost(Post post, byte[] rowVersion)
+        void IForumRepository.UpdatePost(Post post, uint rowVersion)
         {
             throw new NotImplementedException();
         }
