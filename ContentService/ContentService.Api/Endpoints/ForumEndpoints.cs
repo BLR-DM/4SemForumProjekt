@@ -25,7 +25,7 @@ namespace ContentService.Api.Endpoints
                 {
                     await command.UpdateForumAsync(forumDto, appUserId, forumId);
                     return Results.Ok(forumDto);
-                });
+                }).WithTags(tag);
 
             //app.MapPost("/forum/approved",
             //    async (IForumCommand command, PublishForumDto forumDto) =>

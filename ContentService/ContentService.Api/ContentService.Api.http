@@ -22,7 +22,7 @@ Accept: application/json
 }
 
 ###
-POST {{ContentService.Api_HostAddress}}/forum/1/post?appUserId=1
+POST {{ContentService.Api_HostAddress}}/forum/2/post?appUserId=1
 Content-Type: application/json
 Accept: application/json
 
@@ -32,7 +32,7 @@ Accept: application/json
 }
 
 ###
-POST {{ContentService.Api_HostAddress}}/forum/1/post/3/comment?appUserId=1
+POST {{ContentService.Api_HostAddress}}/forum/2/post/1/comment?appUserId=1
 Content-Type: application/json
 Accept: application/json
 
