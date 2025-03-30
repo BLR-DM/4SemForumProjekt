@@ -16,22 +16,39 @@ namespace ContentService.Infrastructure.Repositories
         async Task IForumRepository.AddForumAsync(Forum forum)
         {
             await _db.Forums.AddAsync(forum);
-            await _db.SaveChangesAsync();
         }
 
-        async Task IForumRepository.UpdateForumAsync(Forum forum)
+        void IForumRepository.UpdateForumAsync(Forum forum, uint rowVersion)
         {
-            await _db.SaveChangesAsync();
+            _db.Entry(forum).Property(nameof(forum.RowVersion)).OriginalValue = rowVersion;
         }
 
         void IForumRepository.DeleteForum(Forum forum, uint rowVersion)
         {
-            throw new NotImplementedException();
+            _db.Entry(forum).Property(nameof(forum.RowVersion)).OriginalValue = rowVersion;
+            _db.Forums.Remove(forum);
+        }
+
+        void IForumRepository.UpdatePost(Post post, uint rowVersion)
+        {
+            _db.Entry(post).Property(nameof(post.RowVersion)).OriginalValue = rowVersion;
         }
 
         void IForumRepository.DeletePost(Post post, uint rowVersion)
         {
-            throw new NotImplementedException();
+            _db.Entry(post).Property(nameof(post.RowVersion)).OriginalValue = rowVersion;
+            _db.Posts.Remove(post);
+        }
+
+        void IForumRepository.UpdateComment(Comment comment, uint rowVersion)
+        {
+            _db.Entry(comment).Property(nameof(comment.RowVersion)).OriginalValue = rowVersion;
+        }
+
+        void IForumRepository.DeleteComment(Comment comment, uint rowVersion)
+        {
+            _db.Entry(comment).Property(nameof(comment.RowVersion)).OriginalValue = rowVersion;
+            _db.Comments.Remove(comment);
         }
 
         async Task<Forum> IForumRepository.GetForumAsync(int forumId)
@@ -52,19 +69,14 @@ namespace ContentService.Infrastructure.Repositories
         {
             return await _db.Forums
                 .Include(f => f.Posts)
-                .ThenInclude(p => p.Comments)
+                    .ThenInclude(p => p.Comments)
                 .Include(f => f.Posts)
                 .SingleAsync(f => f.Id == forumId);
         }
-
-        void IForumRepository.UpdateComment(Comment comment, uint rowVersion)
+        
+        async Task IForumRepository.SaveChangesAsync()
         {
-            throw new NotImplementedException();
-        }
-
-        void IForumRepository.UpdatePost(Post post, uint rowVersion)
-        {
-            throw new NotImplementedException();
+            await _db.SaveChangesAsync();
         }
     }
 }

@@ -34,19 +34,21 @@ namespace ContentService.DatabaseMigration.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp(0) without time zone");
 
                     b.Property<int?>("PostId")
                         .HasColumnType("integer");
 
-                    b.Property<long>("RowVersion")
+                    b.Property<uint>("RowVersion")
                         .IsConcurrencyToken()
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("text");
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("xid")
+                        .HasColumnName("xmin");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -78,9 +80,11 @@ namespace ContentService.DatabaseMigration.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<long>("RowVersion")
+                    b.Property<uint>("RowVersion")
                         .IsConcurrencyToken()
-                        .HasColumnType("bigint");
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("xid")
+                        .HasColumnName("xmin");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -113,9 +117,11 @@ namespace ContentService.DatabaseMigration.Migrations
                     b.Property<int?>("ForumId")
                         .HasColumnType("integer");
 
-                    b.Property<long>("RowVersion")
+                    b.Property<uint>("RowVersion")
                         .IsConcurrencyToken()
-                        .HasColumnType("bigint");
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("xid")
+                        .HasColumnName("xmin");
 
                     b.Property<string>("Title")
                         .IsRequired()

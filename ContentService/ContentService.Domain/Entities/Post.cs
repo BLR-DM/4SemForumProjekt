@@ -70,5 +70,19 @@
             comment.Update(content);
             return comment;
         }
+
+        public Comment DeleteComment(int commentId, string appUserId)
+        {
+            var comment = GetCommentById(commentId);
+            _comments.Remove(comment);
+            return comment;
+        }
+
+        private Comment GetCommentById(int commentId)
+        {
+            var comment = Comments.SingleOrDefault(p => p.Id == commentId);
+            if (comment is null) throw new ArgumentException("Comment not found");
+            return comment;
+        }
     }
 }

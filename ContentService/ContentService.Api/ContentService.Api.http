@@ -12,6 +12,16 @@ Accept: application/json
 }
 
 ###
+PUT {{ContentService.Api_HostAddress}}/forum/1?appUserId=1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "ForumName": "This is my first forum, update test",
+    "RowVersion": 796
+}
+
+###
 POST {{ContentService.Api_HostAddress}}/forum/1/post?appUserId=1
 Content-Type: application/json
 Accept: application/json

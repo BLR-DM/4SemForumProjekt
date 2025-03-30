@@ -28,6 +28,7 @@ namespace ContentService.Application.Commands
 
                 // Save
                 await _forumRepository.AddForumAsync(forum);
+                await _forumRepository.SaveChangesAsync();
                 //await _unitOfWork.Commit();
 
                 // Publish event (must happen AFTER saving to DB)
@@ -58,7 +59,7 @@ namespace ContentService.Application.Commands
                 forum.Approve();
 
                 // Save
-                await _forumRepository.UpdateForumAsync(forum);
+                await _forumRepository.SaveChangesAsync();
 
                 // Publish event
                 // await _dapr.PublishEventAsync("pubsub", "forumReadyToPublish", forum.Id);
@@ -93,13 +94,34 @@ namespace ContentService.Application.Commands
                 forum.Publish();
 
                 // Save
-                await _forumRepository.UpdateForumAsync(forum);
+                await _forumRepository.SaveChangesAsync();
 
                 //await _unitOfWork.Commit();
             }
             catch (Exception)
             {
                 //await _unitOfWork.Rollback();
+                throw;
+            }
+        }
+
+        async Task IForumCommand.UpdateForumAsync(UpdateForumDto forumDto, string appUserId, int forumId)
+        {
+            try
+            {
+                // Load
+                var forum = await _forumRepository.GetForumAsync(forumId);
+
+                // Do
+                forum.Update(forumDto.ForumName);
+                _forumRepository.UpdateForumAsync(forum, forumDto.RowVersion);
+
+                // Save
+                await _forumRepository.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
         }
@@ -117,6 +139,7 @@ namespace ContentService.Application.Commands
                 _forumRepository.DeleteForum(forum, forumDto.RowVersion);
 
                 // Save
+                await _forumRepository.SaveChangesAsync();
                 //await _unitOfWork.Commit();
             }
             catch (Exception)
@@ -139,7 +162,7 @@ namespace ContentService.Application.Commands
                 forum.AddPost(postDto.Title, postDto.Content, username, appUserId);
 
                 //Save
-                await _forumRepository.UpdateForumAsync(forum);
+                await _forumRepository.SaveChangesAsync();
                 // await _unitOfWork.Commit();
             }
             catch (Exception)
@@ -159,11 +182,11 @@ namespace ContentService.Application.Commands
                 var forum = await _forumRepository.GetForumAsync(forumId);
 
                 // Do
-                var post = forum.UpdatePost(postId, postDto.Title, postDto.Description,
-                    appUserId);
+                var post = forum.UpdatePost(postId, postDto.Title, postDto.Description, appUserId);
                 _forumRepository.UpdatePost(post, postDto.RowVersion);
 
                 //Save
+                await _forumRepository.SaveChangesAsync();
                 // await _unitOfWork.Commit();
             }
             catch (Exception)
@@ -187,6 +210,7 @@ namespace ContentService.Application.Commands
                 _forumRepository.DeletePost(post, postDto.RowVersion);
 
                 //Save
+                await _forumRepository.SaveChangesAsync();
                 // await _unitOfWork.Commit();
             }
             catch (Exception)
