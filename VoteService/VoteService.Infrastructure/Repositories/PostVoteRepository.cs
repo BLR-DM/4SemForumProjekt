@@ -24,19 +24,22 @@ namespace VoteService.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        Task IPostVoteRepository.DeletePostVoteAsync(int id)
+        async Task IPostVoteRepository.DeletePostVoteAsync(PostVote postVote)
         {
-            throw new NotImplementedException();
+            _context.PostVotes.Remove(postVote);
+            await _context.SaveChangesAsync();
         }
 
-        async Task<PostVote> IPostVoteRepository.GetVoteAsync(string userId, string postId)
+        async Task<PostVote> IPostVoteRepository.GetVoteByUserIdAsync(string userId, string postId)
         {
+            //Null tjek sker i application layer (Skal bruges ift. ToggleVote metoden til at styre votes)
             return await _context.PostVotes.FirstOrDefaultAsync(v => v.UserId == userId && v.PostId == postId);
         }
 
-        Task IPostVoteRepository.UpdateVoteAsync(PostVote postVote)
-        {
-            throw new NotImplementedException();
+        async Task IPostVoteRepository.UpdateVoteAsync(PostVote postVote)
+        { 
+            _context.PostVotes.Update(postVote);
+            await _context.SaveChangesAsync();
         }
     }
 }

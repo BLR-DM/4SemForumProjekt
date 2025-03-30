@@ -8,10 +8,10 @@ namespace VoteService.Domain.Entities
 {
     public class PostVote
     {
-        public int Id { get; protected set; }
         public string UserId { get; protected set; }
         public string PostId { get; protected set; }
         public bool VoteType { get; protected set; }
+        public DateTime VotedAt { get; protected set; } = DateTime.UtcNow.AddHours(2);
 
         protected PostVote() {}
 
@@ -30,6 +30,7 @@ namespace VoteService.Domain.Entities
         public void Update(bool voteType)
         {
             VoteType = voteType;
+            VotedAt = DateTime.UtcNow.AddHours(2);
         }
 
     }

@@ -1,7 +1,8 @@
 using Scalar.AspNetCore;
 using VoteService.Application;
-using VoteService.Application.CommandDto.PostVoteDto;
+using VoteService.Application.Commands.CommandDto;
 using VoteService.Application.Interfaces;
+using VoteService.Application.Queries.Interfaces;
 using VoteService.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,20 +40,93 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("AllowAspire");
 
-app.MapPost("/postvote", async (CreatePostVoteDto dto, IPostVoteCommand command) =>
-{
-    try
-    {
-        await command.CreateVoteAsync(dto);
-        return Results.Created();
-    }
-    catch (Exception)
-    {
-        return Results.BadRequest();
 
-    }
-});
+app.MapPost("Post/{postId}/Vote",
+    async (string postId, PostVoteDto dto, IPostVoteCommand command) =>
+    {
+        try
+        {
+            await command.TogglePostVote(postId, dto);
+            return Results.Ok();
+        }
+        catch (Exception e)
+        {
+            return Results.Problem(e.Message);
+        }
+    });
 
-app.MapGet("/hello", () => "Hello World!");
+app.MapPost("Comment/{commentId}/Vote",
+    async (string commentId, CommentVoteDto dto, ICommentVoteCommand command) =>
+    {
+        try
+        {
+            await command.ToggleCommentVote(commentId, dto);
+            return Results.Ok();
+        }
+        catch (Exception e)
+        {
+            return Results.Problem(e.Message);
+        }
+    });
+
+app.MapGet("Post/{postId}/Votes",
+    async (string postId, IPostVoteQuery query) =>
+    {
+        try
+        {
+            var postVotes = await query.GetVotesByPostIdAsync(postId);
+
+            return Results.Ok(postVotes);
+        }
+        catch (Exception e)
+        {
+            return Results.Problem(e.Message);
+        }
+    });
+
+app.MapPost("Post/Votes",
+    async (List<string> postIds, IPostVoteQuery query) =>
+    {
+        try
+        {
+            var postVotesList = await query.GetVotesByPostIdsAsync(postIds);
+
+            return Results.Ok(postVotesList);
+        }
+        catch (Exception e)
+        {
+            return Results.Problem(e.Message);
+        }
+    });
+
+app.MapGet("Comment/{commentId}/Votes",
+    async (string commentId, ICommentVoteQuery query) =>
+    {
+        try
+        {
+            var commentVores = await query.GetVotesByCommentIdAsync(commentId);
+
+            return Results.Ok(commentVores);
+        }
+        catch (Exception e)
+        {
+            return Results.Problem(e.Message);
+        }
+    });
+
+app.MapPost("Comment/Votes",
+    async (List<string> commentIds, ICommentVoteQuery query) =>
+    {
+        try
+        {
+            var commentVotesList = await query.GetVotesByCommentIdsAsync(commentIds);
+
+            return Results.Ok(commentVotesList);
+        }
+        catch (Exception e)
+        {
+            return Results.Problem(e.Message);
+        }
+    });
 
 app.Run();
