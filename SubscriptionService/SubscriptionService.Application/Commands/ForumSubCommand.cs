@@ -18,17 +18,17 @@ namespace SubscriptionService.Application.Commands
         {
             _forumSubRepository = forumSubRepository;
         }
-        async Task IForumSubCommand.CreateAsync(SubDto forumSubDto)
+        async Task IForumSubCommand.CreateAsync(int forumId, string appUserId)
         {
-            var forumSub = ForumSubscription.Create(forumSubDto.ItemId, forumSubDto.AppUserId);
+            var forumSub = ForumSubscription.Create(forumId, appUserId);
 
             await _forumSubRepository.AddAsync(forumSub);
 
         }
 
-        async Task IForumSubCommand.DeleteAsync(SubDto forumSubDto)
+        async Task IForumSubCommand.DeleteAsync(int forumId, string appUserId)
         {
-            var forumSub = await _forumSubRepository.GetAsync(forumSubDto.ItemId, forumSubDto.AppUserId);
+            var forumSub = await _forumSubRepository.GetAsync(forumId, appUserId);
            
             await _forumSubRepository.DeleteAsync(forumSub);
             

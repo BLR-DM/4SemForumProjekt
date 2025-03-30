@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace SubscriptionService.Application.Commands.Interfaces
 {
     public interface IForumSubCommand
     {
-        Task CreateAsync(SubDto forumSubDto);
-        Task DeleteAsync(SubDto forumSubDto);
+        Task CreateAsync(int forumId, string appUserId);
+        Task DeleteAsync(int forumId, string appUserId);
     }
 }

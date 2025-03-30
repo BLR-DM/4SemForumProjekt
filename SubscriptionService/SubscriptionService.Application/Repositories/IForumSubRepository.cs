@@ -12,7 +12,5 @@ namespace SubscriptionService.Application.Repositories
         Task AddAsync(ForumSubscription forumSub);
         Task DeleteAsync(ForumSubscription forumSub);
         Task<ForumSubscription> GetAsync(int forumId, string appUserId);
-        Task<List<ForumSubscription>> GetSubscriptionsByForumIdAsync(int forumId);
-        Task<List<ForumSubscription>> GetSubscriptionsByUserIdAsync(string appUserId);
     }
 }

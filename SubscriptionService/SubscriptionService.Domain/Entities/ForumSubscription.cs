@@ -12,7 +12,7 @@ namespace SubscriptionService.Domain.Entities
 
         public int ForumId { get; protected set; }
         public string AppUserId { get; protected set; }
-        public DateTime SubscribedAt { get; protected set; } = DateTime.Now;
+        public DateTime SubscribedAt { get; protected set; } = DateTime.UtcNow.AddHours(1);
 
         private ForumSubscription(int forumId, string appUserId)
         {

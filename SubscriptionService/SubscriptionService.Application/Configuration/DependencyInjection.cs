@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using SubscriptionService.Application.Commands;
 using SubscriptionService.Application.Commands.Interfaces;
 
 namespace SubscriptionService.Application.Configuration
@@ -12,8 +13,8 @@ namespace SubscriptionService.Application.Configuration
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddScoped<IForumSubCommand, IForumSubCommand>();
-            services.AddScoped<IPostSubCommand, IPostSubCommand>();
+            services.AddScoped<IForumSubCommand, ForumSubCommand>();
+            services.AddScoped<IPostSubCommand, PostSubCommand>();
 
             return services;
         }

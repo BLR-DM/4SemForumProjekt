@@ -13,7 +13,5 @@ namespace SubscriptionService.Application.Repositories
         Task DeleteAsync(PostSubscription postSub); 
         Task<PostSubscription> GetAsync(int postId, string appUserId);
 
-        Task<List<PostSubscription>> GetSubscriptionsByPostIdAsync(int postId);
-        Task<List<PostSubscription>> GetSubscriptionsByUserIdAsync(string appUserId);
     }
 }

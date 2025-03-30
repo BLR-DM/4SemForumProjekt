@@ -9,7 +9,7 @@ namespace SubscriptionService.Application.Commands.Interfaces
 {
     public interface IPostSubCommand
     {
-        Task CreateAsync(SubDto postSubDto);
-        Task DeleteAsync(SubDto postSubDto);
+        Task CreateAsync(int postId, string appUserId);
+        Task DeleteAsync(int postId, string appUserId);
     }
 }
