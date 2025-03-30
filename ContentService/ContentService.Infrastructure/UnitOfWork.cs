@@ -19,7 +19,7 @@ namespace ContentService.Infrastructure
 
             try
             {
-                //await _db.SaveChangesAsync();
+                await _db.SaveChangesAsync();
                 //await _transaction.CommitAsync();
             }
             catch (Exception)

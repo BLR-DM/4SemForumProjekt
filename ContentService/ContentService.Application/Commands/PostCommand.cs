@@ -24,8 +24,6 @@ namespace ContentService.Application.Commands
 
                 // Load
                 var forum = await _forumRepository.GetForumWithSinglePostAsync(forumId, postId);
-
-                // Load
                 var post = forum.GetPostById(postId);
 
                 // Do
@@ -51,15 +49,40 @@ namespace ContentService.Application.Commands
 
                 // Load
                 var forum = await _forumRepository.GetForumWithSinglePostAsync(forumId, postId);
-
-                // Load
                 var post = forum.GetPostById(postId);
 
                 // Do
                 var comment = post.UpdateComment(commentId, commentDto.Content, appUserId);
+                _forumRepository.UpdateComment(comment, commentDto.RowVersion);
 
                 // Save
-                _forumRepository.UpdateComment(comment, commentDto.RowVersion);
+                await _forumRepository.SaveChangesAsync();
+                // await _unitOfWork.Commit();
+            }
+            catch (Exception)
+            {
+                // await _unitOfWork.Rollback();
+                throw;
+            }
+        }
+
+        async Task IPostCommand.DeleteCommentAsync(DeleteCommentDto commentDto, string appUserId, int forumId,
+            int postId, int commentId)
+        {
+            try
+            {
+                //await _unitOfWork.BeginTransaction();
+
+                // Load
+                var forum = await _forumRepository.GetForumWithSinglePostAsync(forumId, postId);
+                var post = forum.GetPostById(postId);
+
+                // Do
+                var comment = post.DeleteComment(commentId, appUserId);
+                _forumRepository.DeleteComment(comment, commentDto.RowVersion);
+
+                // Save
+                await _forumRepository.SaveChangesAsync();
                 // await _unitOfWork.Commit();
             }
             catch (Exception)

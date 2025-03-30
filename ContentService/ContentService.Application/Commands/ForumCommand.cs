@@ -28,6 +28,7 @@ namespace ContentService.Application.Commands
 
                 // Save
                 await _forumRepository.AddForumAsync(forum);
+                await _forumRepository.SaveChangesAsync();
                 //await _unitOfWork.Commit();
 
                 // Publish event (must happen AFTER saving to DB)
@@ -113,10 +114,10 @@ namespace ContentService.Application.Commands
 
                 // Do
                 forum.Update(forumDto.ForumName);
-                await _forumRepository.UpdateForumAsync(forum, forumDto.RowVersion);
+                _forumRepository.UpdateForumAsync(forum, forumDto.RowVersion);
 
                 // Save
-
+                await _forumRepository.SaveChangesAsync();
             }
             catch (Exception)
             {
@@ -138,6 +139,7 @@ namespace ContentService.Application.Commands
                 _forumRepository.DeleteForum(forum, forumDto.RowVersion);
 
                 // Save
+                await _forumRepository.SaveChangesAsync();
                 //await _unitOfWork.Commit();
             }
             catch (Exception)
@@ -180,11 +182,11 @@ namespace ContentService.Application.Commands
                 var forum = await _forumRepository.GetForumAsync(forumId);
 
                 // Do
-                var post = forum.UpdatePost(postId, postDto.Title, postDto.Description,
-                    appUserId);
+                var post = forum.UpdatePost(postId, postDto.Title, postDto.Description, appUserId);
                 _forumRepository.UpdatePost(post, postDto.RowVersion);
 
                 //Save
+                await _forumRepository.SaveChangesAsync();
                 // await _unitOfWork.Commit();
             }
             catch (Exception)
@@ -208,6 +210,7 @@ namespace ContentService.Application.Commands
                 _forumRepository.DeletePost(post, postDto.RowVersion);
 
                 //Save
+                await _forumRepository.SaveChangesAsync();
                 // await _unitOfWork.Commit();
             }
             catch (Exception)

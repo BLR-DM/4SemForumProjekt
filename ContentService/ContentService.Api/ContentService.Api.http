@@ -18,7 +18,7 @@ Accept: application/json
 
 {
     "ForumName": "This is my first forum, update test",
-    "RowVersion": 795
+    "RowVersion": 796
 }
 
 ###
