@@ -6,27 +6,27 @@
         {
         }
 
-        private Comment(string username, string text, string appUserId)
+        private Comment(string username, string content, string appUserId)
         {
             Username = username;
-            Text = text;
+            Content = content;
             CreatedDate = DateTime.Now;
             AppUserId = appUserId;
         }
         
+        public string Content { get; protected set; }
         public string Username { get; protected set; }
-        public string Text { get; protected set; }
         public DateTime CreatedDate { get; protected set; }
         public string AppUserId { get; protected set; }
 
-        public static Comment Create(string username, string text, string appUserId)
+        public static Comment Create(string username, string content, string appUserId)
         {
-            return new Comment(username, text, appUserId);
+            return new Comment(username, content, appUserId);
         }
 
         public void Update(string text)
         {
-            Text = text;
+            Content = text;
         }
     }
 }

@@ -19,8 +19,9 @@ namespace ContentService.Infrastructure.Repositories
             await _db.SaveChangesAsync();
         }
 
-        async Task IForumRepository.UpdateForumAsync(Forum forum)
+        async Task IForumRepository.UpdateForumAsync(Forum forum, uint rowVersion)
         {
+            _db.Entry(forum).Property(nameof(forum.RowVersion)).OriginalValue = rowVersion;
             await _db.SaveChangesAsync();
         }
 
@@ -65,6 +66,11 @@ namespace ContentService.Infrastructure.Repositories
         void IForumRepository.UpdatePost(Post post, uint rowVersion)
         {
             throw new NotImplementedException();
+        }
+
+        async Task IForumRepository.SaveChangesAsync()
+        {
+            await _db.SaveChangesAsync();
         }
     }
 }

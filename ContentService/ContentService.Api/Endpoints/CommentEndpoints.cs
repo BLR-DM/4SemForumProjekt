@@ -16,7 +16,7 @@ namespace ContentService.Api.Endpoints
                     var username = "Bilal";
                     await command.CreateCommentAsync(commentDto, username, postId, appUserId, forumId);
                     return Results.Created();
-                });
+                }).WithTags(tag);
         }
     }
 }

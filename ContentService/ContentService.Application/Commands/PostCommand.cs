@@ -32,7 +32,7 @@ namespace ContentService.Application.Commands
                 post.CreateComment(username, commentDto.Content, appUserId);
 
                 // Save
-                await _forumRepository.UpdateForumAsync(forum);
+                await _forumRepository.SaveChangesAsync();
                 //await _unitOfWork.Commit();
             }
             catch (Exception)

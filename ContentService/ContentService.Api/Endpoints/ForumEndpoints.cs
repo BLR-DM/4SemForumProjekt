@@ -20,6 +20,13 @@ namespace ContentService.Api.Endpoints
                     return Results.Created(); // Results.Accepted -> workflow start
                 }).WithTags(tag);
 
+            app.MapPut("/forum/{forumId}", 
+                async (IForumCommand command, UpdateForumDto forumDto, string appUserId, int forumId) =>
+                {
+                    await command.UpdateForumAsync(forumDto, appUserId, forumId);
+                    return Results.Ok(forumDto);
+                });
+
             //app.MapPost("/forum/approved",
             //    async (IForumCommand command, PublishForumDto forumDto) =>
             //    {
