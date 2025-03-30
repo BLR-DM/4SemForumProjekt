@@ -20,14 +20,6 @@ namespace ContentService.Api.Endpoints
                     return Results.Created(); // Results.Accepted -> workflow start
                 }).WithTags(tag);
 
-            app.MapPost("/forum/{forumId}/post",
-                async (IForumCommand command, CreatePostDto postDto, int forumId, string appUserId) =>
-                {
-                    var username = "Lucas MacQ";
-                    await command.CreatePostAsync(postDto, username, appUserId, forumId);
-                    return Results.Created();
-                }).WithTags(tag);
-
             //app.MapPost("/forum/approved",
             //    async (IForumCommand command, PublishForumDto forumDto) =>
             //    {

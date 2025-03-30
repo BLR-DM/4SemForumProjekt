@@ -38,7 +38,9 @@ namespace ContentService.Infrastructure.Repositories
         {
             try
             {
-                return await _db.Forums.FirstAsync(forum => forum.Id == forumId);
+                return await _db.Forums
+                    .Include(f => f.Posts)
+                    .FirstAsync(forum => forum.Id == forumId);
             }
             catch (Exception)
             {
@@ -46,9 +48,13 @@ namespace ContentService.Infrastructure.Repositories
             }
         }
 
-        Task<Forum> IForumRepository.GetForumWithSinglePostAsync(int forumId, int postId)
+        async Task<Forum> IForumRepository.GetForumWithSinglePostAsync(int forumId, int postId)
         {
-            throw new NotImplementedException();
+            return await _db.Forums
+                .Include(f => f.Posts)
+                .ThenInclude(p => p.Comments)
+                .Include(f => f.Posts)
+                .SingleAsync(f => f.Id == forumId);
         }
 
         void IForumRepository.UpdateComment(Comment comment, uint rowVersion)
