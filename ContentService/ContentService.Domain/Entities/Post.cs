@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-
-namespace ContentService.Domain.Entities
+﻿namespace ContentService.Domain.Entities
 {
     public class Post : DomainEntity
     {
@@ -16,22 +9,26 @@ namespace ContentService.Domain.Entities
         {
         }
 
-        private Post(string description, string appUserId)
+        private Post(string title, string content, string username, string appUserId)
         {
-            Description = description;
+            Title = title;
+            Content = content;
+            Username = username;
             AppUserId = appUserId;
             CreatedDate = DateTime.Now;
         }
 
-        public string Description { get; protected set; }
+        public string Title { get; protected set; }
+        public string Content { get; protected set; }
+        public string Username { get; protected set; }
         public string AppUserId { get; protected set; }
         public DateTime CreatedDate { get; private set; }
         //public ICollection<PostHistory> History => _history;
         public IReadOnlyCollection<Comment> Comments => _comments;
 
-        public static Post Create(string description, string appUserId)
+        public static Post Create(string title,string content, string username, string appUserId)
         {
-            return new Post(description, appUserId);
+            return new Post(title, content, username, appUserId);
         }
 
         public void Update(string newDescription, string userId)
@@ -39,7 +36,7 @@ namespace ContentService.Domain.Entities
             AssureUserIsCreator(userId);
 
             //SetHistory(Description, Solution);
-            Description = newDescription;
+            Content = newDescription;
         }
 
         //private void SetHistory(string orgDescription, string orgSolution)
@@ -50,27 +47,27 @@ namespace ContentService.Domain.Entities
         private void AssureUserIsCreator(string userId)
         {
             if (!AppUserId.Equals(userId))
-                throw new ArgumentException("Only the creater of the post can edit it");
+                throw new ArgumentException("Only the creater of the post can edit this");
         }
 
 
         // Comment
 
-        public void CreateComment(string username, string text, string appUserId)
+        public void CreateComment(string username, string content, string appUserId)
         {
-            var comment = Comment.Create(username, text, appUserId);
+            var comment = Comment.Create(username, content, appUserId);
             _comments.Add(comment);
         }
 
-        public Comment UpdateComment(int commentId, string text, string appUserId)
+        public Comment UpdateComment(int commentId, string content, string appUserId)
         {
             if (!AppUserId.Equals(appUserId))
-                throw new ArgumentException("Only the creater of the post can edit it");
+                throw new ArgumentException("Only the creater of the post can edit this");
 
             var comment = Comments.FirstOrDefault(c => c.Id == commentId);
             if (comment is null) throw new ArgumentException("Comment not found");
 
-            comment.Update(text);
+            comment.Update(content);
             return comment;
         }
     }

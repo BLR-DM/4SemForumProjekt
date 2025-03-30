@@ -1,4 +1,6 @@
-﻿namespace ContentService.Domain.Entities
+﻿using ContentService.Domain.Enums;
+
+namespace ContentService.Domain.Entities
 {
     public class Forum : DomainEntity
     {
@@ -8,42 +10,62 @@
         {
         }
 
-        private Forum(string name)
+        private Forum(string forumName, string appUserId)
         {
-            ForumName = name;
+            ForumName = forumName;
             CreatedDate = DateTime.Now;
+            AppUserId = appUserId;
+            Status = Status.Submitted;
         }
 
         public string ForumName { get; protected set; } // Value?
-        //public string Description { get; protected set; } // Value?
+        //public string Content { get; protected set; } // Value?
         public DateTime CreatedDate { get; protected set; }
+        public string AppUserId { get; protected set; }
+        public Status Status { get; protected set; }
         public IReadOnlyCollection<Post> Posts => _posts;
 
 
         // Forum
 
-        public static Forum Create(string name)
+        public static Forum Create(string forumName, string appUserId)
         {
-            return new Forum(name);
+            return new Forum(forumName, appUserId);
         }
 
-        public void Update(string name)
+        public void Approve()
         {
-            ForumName = name;
+            if (Status != Status.Submitted)
+                throw new InvalidOperationException("Only submitted forums can be approved");
+
+            Status = Status.Approved;
+        }
+
+        public void Publish()
+        {
+            if (Status != Status.Approved)
+                throw new InvalidOperationException("Only approved forums can be published");
+
+            Status = Status.Published;
+        }
+
+        public void Update(string forumName)
+        {
+            ForumName = forumName;
         }
 
         // Post
 
-        public void AddPost(string description, string appUserId)
+        public void AddPost(string title, string content, string username, string appUserId)
         {
-            var post = Post.Create(description, appUserId);
+            var post = Post.Create(title, content, username, appUserId);
             _posts.Add(post);
         }
 
-        public Post UpdatePost(int postId, string description, string appUserId)
+        public Post UpdatePost(int postId, string title, string content, string appUserId)
         {
             var post = GetPostById(postId);
-            post.Update(description, appUserId);
+            post.Update(content, appUserId);
             return post;
         }
 

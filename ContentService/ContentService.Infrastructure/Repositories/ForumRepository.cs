@@ -1,5 +1,6 @@
 ﻿using ContentService.Application;
 using ContentService.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ContentService.Infrastructure.Repositories
 {
@@ -18,32 +19,50 @@ namespace ContentService.Infrastructure.Repositories
             await _db.SaveChangesAsync();
         }
 
-        void IForumRepository.DeleteForum(Forum forum, byte[] rowVersion)
+        async Task IForumRepository.UpdateForumAsync(Forum forum)
+        {
+            await _db.SaveChangesAsync();
+        }
+
+        void IForumRepository.DeleteForum(Forum forum, uint rowVersion)
         {
             throw new NotImplementedException();
         }
 
-        void IForumRepository.DeletePost(Post post, byte[] rowVersion)
+        void IForumRepository.DeletePost(Post post, uint rowVersion)
         {
             throw new NotImplementedException();
         }
 
-        Task<Forum> IForumRepository.GetForumAsync(int id)
+        async Task<Forum> IForumRepository.GetForumAsync(int forumId)
+        {
+            try
+            {
+                return await _db.Forums
+                    .Include(f => f.Posts)
+                    .FirstAsync(forum => forum.Id == forumId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        async Task<Forum> IForumRepository.GetForumWithSinglePostAsync(int forumId, int postId)
+        {
+            return await _db.Forums
+                .Include(f => f.Posts)
+                .ThenInclude(p => p.Comments)
+                .Include(f => f.Posts)
+                .SingleAsync(f => f.Id == forumId);
+        }
+
+        void IForumRepository.UpdateComment(Comment comment, uint rowVersion)
         {
             throw new NotImplementedException();
         }
 
-        Task<Forum> IForumRepository.GetForumWithSinglePostAsync(int forumId, int postId)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IForumRepository.UpdateComment(Comment comment, byte[] rowVersion)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IForumRepository.UpdatePost(Post post, byte[] rowVersion)
+        void IForumRepository.UpdatePost(Post post, uint rowVersion)
         {
             throw new NotImplementedException();
         }

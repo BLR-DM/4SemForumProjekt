@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ContentService.Domain.Entities
+﻿namespace ContentService.Domain.Entities
 {
     public class Comment : DomainEntity
     {
@@ -21,7 +14,6 @@ namespace ContentService.Domain.Entities
             AppUserId = appUserId;
         }
         
-
         public string Username { get; protected set; }
         public string Text { get; protected set; }
         public DateTime CreatedDate { get; protected set; }

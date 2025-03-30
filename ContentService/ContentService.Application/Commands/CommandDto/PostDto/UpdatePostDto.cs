@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ContentService.Application.Commands.CommandDto.PostDto
+﻿namespace ContentService.Application.Commands.CommandDto.PostDto
 {
-    public record UpdatePostDto(string Description, byte[] RowVersion);
+    public record UpdatePostDto(string Title, string Description, uint RowVersion);
 }

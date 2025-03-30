@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ContentService.Application.Commands.CommandDto.CommentDto
+﻿namespace ContentService.Application.Commands.CommandDto.CommentDto
 {
-    public record CreateCommentDto(string Text);
+    public record CreateCommentDto(string Content);
 }
