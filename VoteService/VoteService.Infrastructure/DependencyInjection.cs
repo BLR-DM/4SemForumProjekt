@@ -21,6 +21,7 @@ namespace VoteService.Infrastructure
             services.AddScoped<IPostVoteRepository, PostVoteRepository>();
             services.AddScoped<ICommentVoteRepository, CommentVoteRepository>();
             services.AddScoped<IPostVoteQuery, PostVoteQuery>();
+            services.AddScoped<ICommentVoteQuery, CommentVoteQuery>();
 
             // Add-Migration InitialMigration -Context VoteContext -Project VoteService.DatabaseMigration
             // Update-Database -Context VoteContext -Project VoteService.DatabaseMigration

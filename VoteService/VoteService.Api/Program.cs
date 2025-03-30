@@ -99,6 +99,34 @@ app.MapPost("Post/Votes",
         }
     });
 
-app.MapGet("/hello", () => "Hello World!");
+app.MapGet("Comment/{commentId}/Votes",
+    async (string commentId, ICommentVoteQuery query) =>
+    {
+        try
+        {
+            var commentVores = await query.GetVotesByCommentIdAsync(commentId);
+
+            return Results.Ok(commentVores);
+        }
+        catch (Exception e)
+        {
+            return Results.Problem(e.Message);
+        }
+    });
+
+app.MapPost("Comment/Votes",
+    async (List<string> commentIds, ICommentVoteQuery query) =>
+    {
+        try
+        {
+            var commentVotesList = await query.GetVotesByCommentIdsAsync(commentIds);
+
+            return Results.Ok(commentVotesList);
+        }
+        catch (Exception e)
+        {
+            return Results.Problem(e.Message);
+        }
+    });
 
 app.Run();
