@@ -20,7 +20,7 @@ namespace ContentService.Application.Commands
         {
             try
             {
-                //await _unitOfWork.BeginTransaction();
+                await _unitOfWork.BeginTransaction();
 
                 // Load
                 var forum = await _forumRepository.GetForumWithSinglePostAsync(forumId, postId);
@@ -30,12 +30,11 @@ namespace ContentService.Application.Commands
                 post.CreateComment(username, commentDto.Content, appUserId);
 
                 // Save
-                await _forumRepository.SaveChangesAsync();
-                //await _unitOfWork.Commit();
+                await _unitOfWork.Commit();
             }
             catch (Exception)
             {
-                //await _unitOfWork.Rollback();
+                await _unitOfWork.Rollback();
                 throw;
             }
         }
@@ -45,7 +44,7 @@ namespace ContentService.Application.Commands
         {
             try
             {
-                //await _unitOfWork.BeginTransaction();
+                await _unitOfWork.BeginTransaction();
 
                 // Load
                 var forum = await _forumRepository.GetForumWithSinglePostAsync(forumId, postId);
@@ -56,12 +55,11 @@ namespace ContentService.Application.Commands
                 _forumRepository.UpdateComment(comment, commentDto.RowVersion);
 
                 // Save
-                await _forumRepository.SaveChangesAsync();
-                // await _unitOfWork.Commit();
+                await _unitOfWork.Commit();
             }
             catch (Exception)
             {
-                // await _unitOfWork.Rollback();
+                await _unitOfWork.Rollback();
                 throw;
             }
         }
@@ -71,7 +69,7 @@ namespace ContentService.Application.Commands
         {
             try
             {
-                //await _unitOfWork.BeginTransaction();
+                await _unitOfWork.BeginTransaction();
 
                 // Load
                 var forum = await _forumRepository.GetForumWithSinglePostAsync(forumId, postId);
@@ -82,12 +80,11 @@ namespace ContentService.Application.Commands
                 _forumRepository.DeleteComment(comment, commentDto.RowVersion);
 
                 // Save
-                await _forumRepository.SaveChangesAsync();
-                // await _unitOfWork.Commit();
+                await _unitOfWork.Commit();
             }
             catch (Exception)
             {
-                // await _unitOfWork.Rollback();
+                await _unitOfWork.Rollback();
                 throw;
             }
         }

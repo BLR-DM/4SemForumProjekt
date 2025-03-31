@@ -8,7 +8,7 @@ POST {{ContentService.Api_HostAddress}}/forum?appUserId=1
 Content-Type: application/json
 Accept: application/json
 {
-    "forumName": "My New Forum"
+    "forumName": "Test transaction"
 }
 
 ###

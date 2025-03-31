@@ -15,21 +15,21 @@ namespace ContentService.Infrastructure
         }
         async Task IUnitOfWork.Commit()
         {
-            //if (_transaction == null) throw new Exception("You must call 'BeginTransaction' before Commit is called");
+            if (_transaction == null) throw new Exception("You must call 'BeginTransaction' before Commit is called");
 
             try
             {
                 await _db.SaveChangesAsync();
-                //await _transaction.CommitAsync();
+                await _transaction.CommitAsync();
             }
             catch (Exception)
             {
-                //await _transaction.RollbackAsync();
+                await _transaction.RollbackAsync();
                 throw;
             }
             finally
             {
-                //await _transaction.DisposeAsync();
+                await _transaction.DisposeAsync();
             }
 
         }
