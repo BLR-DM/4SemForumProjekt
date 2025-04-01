@@ -27,6 +27,13 @@ namespace ContentService.Api.Endpoints
                     return Results.Ok(forumDto);
                 }).WithTags(tag);
 
+            app.MapDelete("/forum/{forumId}", // check appUserId / moderator
+                async (IForumCommand command, DeleteForumDto forumDto, string appUserId, int forumId) =>
+                {
+                    await command.DeleteForumAsync(forumDto, forumId);
+                    return Results.Ok();
+                }).WithTags(tag);
+
             //app.MapPost("/forum/approved",
             //    async (IForumCommand command, PublishForumDto forumDto) =>
             //    {

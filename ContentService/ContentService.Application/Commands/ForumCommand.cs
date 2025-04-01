@@ -176,7 +176,7 @@ namespace ContentService.Application.Commands
             }
         }
 
-        async Task IForumCommand.UpdatePostAsync(UpdatePostDto postDto, string appUserId, int postId, int forumId)
+        async Task IForumCommand.UpdatePostAsync(UpdatePostDto postDto, string appUserId, int forumId, int postId)
         {
             try
             {
@@ -199,7 +199,7 @@ namespace ContentService.Application.Commands
             }
         }
 
-        async Task IForumCommand.DeletePostAsync(DeletePostDto postDto, string appUserId, int postId, int forumId)
+        async Task IForumCommand.DeletePostAsync(DeletePostDto postDto, string appUserId, int forumId, int postId)
         {
             try
             {

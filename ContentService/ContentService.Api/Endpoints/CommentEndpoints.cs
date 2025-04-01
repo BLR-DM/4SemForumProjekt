@@ -1,5 +1,4 @@
-﻿
-using ContentService.Application.Commands.CommandDto.CommentDto;
+﻿using ContentService.Application.Commands.CommandDto.CommentDto;
 using ContentService.Application.Commands.Interfaces;
 
 namespace ContentService.Api.Endpoints
@@ -16,6 +15,20 @@ namespace ContentService.Api.Endpoints
                     var username = "Bilal";
                     await command.CreateCommentAsync(commentDto, username, postId, appUserId, forumId);
                     return Results.Created();
+                }).WithTags(tag);
+
+            app.MapPut("/forum/{forumId}/post/{postId}/comment/{commentId}",
+                async (IPostCommand command, UpdateCommentDto commentDto, string appUserId, int forumId, int postId, int commentId) =>
+                {
+                    await command.UpdateCommentAsync(commentDto, appUserId, forumId, postId, commentId);
+                    return Results.Ok(commentDto);
+                }).WithTags(tag);
+
+            app.MapDelete("/forum/{forumId}/post/{postId}/comment/{commentId}",
+                async (IPostCommand command, DeleteCommentDto commentDto, string appUserId, int forumId, int postId, int commentId) =>
+                {
+                    await command.DeleteCommentAsync(commentDto, appUserId, forumId, postId, commentId);
+                    return Results.Ok();
                 }).WithTags(tag);
         }
     }

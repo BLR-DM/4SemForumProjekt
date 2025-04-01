@@ -1,4 +1,7 @@
-﻿namespace ContentService.Domain.Entities
+﻿using System.Runtime.CompilerServices;
+using System.Xml.Linq;
+
+namespace ContentService.Domain.Entities
 {
     public class Post : DomainEntity
     {
@@ -61,11 +64,10 @@
 
         public Comment UpdateComment(int commentId, string content, string appUserId)
         {
-            if (!AppUserId.Equals(appUserId))
-                throw new ArgumentException("Only the creater of the post can edit this");
+            var comment = GetCommentById(commentId);
 
-            var comment = Comments.FirstOrDefault(c => c.Id == commentId);
-            if (comment is null) throw new ArgumentException("Comment not found");
+            if (!comment.AppUserId.Equals(appUserId))
+                throw new ArgumentException("Only the creater of the comment can edit this");
 
             comment.Update(content);
             return comment;
@@ -74,13 +76,17 @@
         public Comment DeleteComment(int commentId, string appUserId)
         {
             var comment = GetCommentById(commentId);
+
+            if (!comment.AppUserId.Equals(appUserId))
+                throw new ArgumentException("Only the creater of the comment can delete this");
+
             _comments.Remove(comment);
             return comment;
         }
 
         private Comment GetCommentById(int commentId)
         {
-            var comment = Comments.SingleOrDefault(p => p.Id == commentId);
+            var comment = Comments.FirstOrDefault(p => p.Id == commentId);
             if (comment is null) throw new ArgumentException("Comment not found");
             return comment;
         }

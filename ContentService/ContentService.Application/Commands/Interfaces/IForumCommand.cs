@@ -14,7 +14,7 @@ namespace ContentService.Application.Commands.Interfaces
 
         // Post
         Task CreatePostAsync(CreatePostDto postDto, string username, string appUserId, int forumId);
-        Task UpdatePostAsync(UpdatePostDto postDto, string appUserId, int postId, int forumId);
-        Task DeletePostAsync(DeletePostDto postDto, string appUserId, int postId, int forumId);
+        Task UpdatePostAsync(UpdatePostDto postDto, string appUserId, int forumId, int postId);
+        Task DeletePostAsync(DeletePostDto postDto, string appUserId, int forumId, int postId);
     }
 }
