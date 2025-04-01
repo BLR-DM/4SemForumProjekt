@@ -49,9 +49,16 @@ namespace ContentService.Domain.Entities
             Status = Status.Published;
         }
 
-        public void Update(string forumName)
+        public void Update(string forumName, string appUserId)
         {
+            AssureUserIsCreator(appUserId);
             ForumName = forumName;
+        }
+
+        private void AssureUserIsCreator(string userId)
+        {
+            if (!AppUserId.Equals(userId))
+                throw new ArgumentException("Only the creater of the post can edit this");
         }
 
         // Post
