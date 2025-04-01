@@ -119,7 +119,7 @@ namespace ContentService.Application.Commands
                 var forum = await _forumRepository.GetForumAsync(forumId);
 
                 // Do
-                forum.Update(forumDto.ForumName);
+                forum.Update(forumDto.ForumName, appUserId);
                 _forumRepository.UpdateForumAsync(forum, forumDto.RowVersion);
 
                 // Save

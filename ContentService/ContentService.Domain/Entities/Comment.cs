@@ -24,9 +24,16 @@
             return new Comment(username, content, appUserId);
         }
 
-        public void Update(string text)
+        public void Update(string content, string appUserId)
         {
-            Content = text;
+            AssureUserIsCreator(appUserId);
+            Content = content;
+        }
+
+        private void AssureUserIsCreator(string userId)
+        {
+            if (!AppUserId.Equals(userId))
+                throw new ArgumentException("Only the creater of the comment can edit this");
         }
     }
 }

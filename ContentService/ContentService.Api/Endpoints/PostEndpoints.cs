@@ -14,7 +14,7 @@ namespace ContentService.Api.Endpoints
                 {
                     var username = "Lucas MacQ";
                     await command.CreatePostAsync(postDto, username, appUserId, forumId);
-                    return Results.Ok();
+                    return Results.Created();
                 }).WithTags(tag);
 
             app.MapPut("/forum/{forumId}/post/{postId}",
@@ -29,7 +29,7 @@ namespace ContentService.Api.Endpoints
                 async (IForumCommand command, DeletePostDto postDto, string appUserId, int forumId, int postId) =>
                 {
                     await command.DeletePostAsync(postDto, appUserId, forumId, postId);
-                    return Results.Ok();
+                    return Results.Ok("Post deleted");
                 }).WithTags(tag);
         }
     }

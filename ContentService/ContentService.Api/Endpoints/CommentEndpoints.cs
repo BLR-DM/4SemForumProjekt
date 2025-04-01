@@ -28,7 +28,7 @@ namespace ContentService.Api.Endpoints
                 async (IPostCommand command, DeleteCommentDto commentDto, string appUserId, int forumId, int postId, int commentId) =>
                 {
                     await command.DeleteCommentAsync(commentDto, appUserId, forumId, postId, commentId);
-                    return Results.Ok();
+                    return Results.Ok("Comment deleted");
                 }).WithTags(tag);
         }
     }

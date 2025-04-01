@@ -1,6 +1,7 @@
 ﻿using ContentService.Application.Commands.CommandDto.ForumDto;
 using ContentService.Application.Commands.CommandDto.PostDto;
 using ContentService.Application.Commands.Interfaces;
+using ContentService.Domain.Entities;
 
 namespace ContentService.Api.Endpoints
 {
@@ -31,7 +32,7 @@ namespace ContentService.Api.Endpoints
                 async (IForumCommand command, DeleteForumDto forumDto, string appUserId, int forumId) =>
                 {
                     await command.DeleteForumAsync(forumDto, forumId);
-                    return Results.Ok();
+                    return Results.Ok("Forum deleted");
                 }).WithTags(tag);
 
             //app.MapPost("/forum/approved",

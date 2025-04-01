@@ -66,19 +66,13 @@ namespace ContentService.Domain.Entities
         {
             var comment = GetCommentById(commentId);
 
-            if (!comment.AppUserId.Equals(appUserId))
-                throw new ArgumentException("Only the creater of the comment can edit this");
-
-            comment.Update(content);
+            comment.Update(content, appUserId);
             return comment;
         }
 
         public Comment DeleteComment(int commentId, string appUserId)
         {
             var comment = GetCommentById(commentId);
-
-            if (!comment.AppUserId.Equals(appUserId))
-                throw new ArgumentException("Only the creater of the comment can delete this");
 
             _comments.Remove(comment);
             return comment;
